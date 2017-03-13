@@ -73,6 +73,7 @@ namespace leavedays.App_Start
             kernel.Bind<CompanyService>().To<CompanyService>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<ICompanyRepository>().To<CompanyRepository>();
+            kernel.Bind<IRequestRepository>().To<RequestRepository>();
 
             kernel.Bind<ISessionFactory>().ToMethod(context =>
             {

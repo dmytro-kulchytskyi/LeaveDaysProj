@@ -146,6 +146,7 @@
     <EmbeddedResource Include="Models\Nhibernate\License.hbm.xml" />
     <EmbeddedResource Include="Models\Nhibernate\Company.hbm.xml" />
     <EmbeddedResource Include="Models\Nhibernate\SiteGroup.hbm.xml" />
+    <EmbeddedResource Include="Models\Nhibernate\Request.hbm.xml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -160,8 +161,11 @@
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\Repository\CompanyRepository.cs" />
     <Compile Include="Models\Repository\Interfaces\ICompanyRepository.cs" />
+    <Compile Include="Models\Repository\Interfaces\IRequestRepository.cs" />
     <Compile Include="Models\Repository\Interfaces\IUserRepository.cs" />
+    <Compile Include="Models\Repository\RequestRepository.cs" />
     <Compile Include="Models\Repository\UserRepository.cs" />
+    <Compile Include="Models\Request.cs" />
     <Compile Include="Models\SiteGroup.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

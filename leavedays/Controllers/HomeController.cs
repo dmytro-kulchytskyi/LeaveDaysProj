@@ -17,7 +17,7 @@ namespace leavedays.Controllers
 
         public ActionResult Index(string company)
         {
-            return View();
+            return Content(1231.ToString());
         }
     }
 }

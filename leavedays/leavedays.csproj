@@ -145,6 +145,7 @@
     <EmbeddedResource Include="Models\Nhibernate\User.hbm.xml" />
     <EmbeddedResource Include="Models\Nhibernate\License.hbm.xml" />
     <EmbeddedResource Include="Models\Nhibernate\Company.hbm.xml" />
+    <EmbeddedResource Include="Models\Nhibernate\SiteGroup.hbm.xml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

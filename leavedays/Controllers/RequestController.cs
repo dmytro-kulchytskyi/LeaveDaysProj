@@ -43,6 +43,23 @@ namespace leavedays.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public ActionResult Confirm()
+        {
+            return View("RequestPanel", requestService.GetByCompanyId(3));
+        }
+
+        [HttpPost]
+        public ActionResult Confirm(int Id, string buttonStatus)
+        {
+            if(buttonStatus == "Accept")
+            {
+                requestService.Accept(Id);
+                return RedirectToAction("Confirm");
+            }
+            requestService.Reject(Id);
+            return RedirectToAction("Confirm");
+        }
 
     }
 }

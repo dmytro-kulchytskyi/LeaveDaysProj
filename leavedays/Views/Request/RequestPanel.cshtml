@@ -1,0 +1,41 @@
+﻿@using leavedays.Models.ViewModel;
+@model IEnumerable<ViewRequest>
+
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RequestPanel</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        @foreach (ViewRequest request in Model)
+        {
+            <tr>
+                @using (Html.BeginForm("Confirm", "Request", FormMethod.Post))
+                {
+                    <td><input type="hidden" value="@request.Id" name="Id"></td>
+                    <td>@request.VacationInterval</td>
+                    <td>@request.SigningDate</td>
+                    <td>@request.RequestBase</td>
+                    <td>@request.IsAccepted</td>
+                    <td><input type="submit" name="buttonStatus" value="Accept" /></td>
+                    <td><input type="submit" name="buttonStatus" value="Reject" /></td>
+                }
+            </tr>
+        }
+    </table>
+</body>
+</html>

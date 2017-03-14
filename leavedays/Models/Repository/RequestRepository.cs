@@ -1,6 +1,8 @@
 ﻿using leavedays.Models.Repository.Interfaces;
+using leavedays.Models.ViewModel;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +20,20 @@ namespace leavedays.Models.Repository
             this.sessionFactory = sessionFactory;
         }
 
-        public IEnumerable<Request> GetByCompanyId(int companyId)
+        public IEnumerable<ViewRequest> GetByCompanyId(int companyId)
         {
             using (var session = sessionFactory.OpenSession())
             {
                 var result = session.CreateCriteria<Request>().
-                    Add(Restrictions.Eq("CompanyId", companyId)).List<Request>();
+                    Add(Restrictions.Eq("CompanyId", companyId))
+                    .SetProjection(Projections.ProjectionList()
+                    .Add(Projections.Id(), "Id")
+                    .Add(Projections.Property("VacationDates"), "VacationInterval")
+                    .Add(Projections.Property("RequestBase"), "RequestBase")
+                    .Add(Projections.Property("SigningDate"), "SigningDate")
+                    .Add(Projections.Property("IsAccepted"), "IsAccepted"))
+                    .SetResultTransformer(Transformers.AliasToBean<ViewRequest>())
+                    .List<ViewRequest>();
                 return result;
             }
         }
@@ -52,7 +62,7 @@ namespace leavedays.Models.Repository
             {
                 using (var transaction = session.BeginTransaction())
                 {
-                    session.Save(request);
+                    session.SaveOrUpdate(request);
                     transaction.Commit();
                     return request.Id;
                 }

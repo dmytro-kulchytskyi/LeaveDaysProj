@@ -177,6 +177,7 @@
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\SiteGroup.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModel\ViewRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\RequestService.cs" />
@@ -192,6 +193,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Request\Create.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Request\RequestPanel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -201,7 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ViewModel\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <PropertyGroup>

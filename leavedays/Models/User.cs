@@ -9,6 +9,7 @@ namespace leavedays.Models
     {
         public virtual int Id { get; set; }
         public virtual string UserName { get; set; }
+        public virtual int CompanyId { get; set; }
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual IEnumerable<SiteGroup> Groups { get; set; }

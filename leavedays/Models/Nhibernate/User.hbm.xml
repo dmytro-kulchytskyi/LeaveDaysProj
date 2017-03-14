@@ -8,6 +8,7 @@
     <property name="UserName" />
     <property name="FirstName" />
     <property name="LastName" type="string"/>
+    <property name="CompanyId" />
     <set name="Groups" table="User_Group"  lazy="false">
       <key column="UserId"/>
       <many-to-many class="SiteGroup" column="GroupId" />

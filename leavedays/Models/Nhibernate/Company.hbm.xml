@@ -6,7 +6,6 @@
       <generator class="native" />
     </id>
     <property name="FullName" />
-    <property name="OwnerId" />
     <property name="UrlName" />
   </class>
 </hibernate-mapping>

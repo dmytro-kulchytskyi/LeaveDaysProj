@@ -12,7 +12,7 @@ namespace leavedays.Services
     public class RequestService
     {
         private readonly IRequestRepository requestRepository;
-        RequestService(IRequestRepository requestRepository)
+        public RequestService(IRequestRepository requestRepository)
         {
             this.requestRepository = requestRepository;
         }
@@ -26,7 +26,7 @@ namespace leavedays.Services
                 Status = editRequest.Status,
                 RequestBase = editRequest.RequestBase,
                 SigningDate = DateTime.Now,
-                IsAccepted = false
+                VacationDates = editRequest.VacationDates
             };
             requestRepository.Save(request);
         }

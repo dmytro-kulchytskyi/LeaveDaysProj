@@ -13,7 +13,7 @@ namespace leavedays.Models.Repository
 
         readonly ISessionFactory sessionFactory;
 
-        RequestRepository(ISessionFactory sessionFactory)
+        public RequestRepository(ISessionFactory sessionFactory)
         {
             this.sessionFactory = sessionFactory;
         }

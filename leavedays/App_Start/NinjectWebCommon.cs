@@ -71,6 +71,7 @@ namespace leavedays.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<CompanyService>().To<CompanyService>();
+            kernel.Bind<RequestService>().To<RequestService>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<ICompanyRepository>().To<CompanyRepository>();
             kernel.Bind<IRequestRepository>().To<RequestRepository>();

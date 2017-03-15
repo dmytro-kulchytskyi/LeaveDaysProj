@@ -46,7 +46,7 @@ namespace leavedays.Controllers
         [HttpGet]
         public ActionResult Confirm()
         {
-            return View("RequestPanel", requestService.GetByCompanyId(3));
+            return View("RequestPanel", requestService.GetByCompanyId(3).OrderBy(model => model.IsAccepted));
         }
 
         [HttpPost]

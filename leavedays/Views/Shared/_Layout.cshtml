@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>
         home
     </title>
-
     <link type="text/css" href="~/Content/Style.css" rel="stylesheet">
-
+    <link href="~/Content/datepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 </head>
 <body>
     <div id="banner_div">
@@ -50,7 +50,7 @@
                         <i class="menu-icon menu-icon-leave pull-left"></i>
                         <label class="pull-left">отпуск</label>
                     </div><span class="submenu" style="display: inline;">
-                        <a href="https://ted.vrijedagen.nl/Request.aspx/Create">запрос</a>
+                        @Html.ActionLink("Request", "Create", "Request")
                         <a href="https://ted.vrijedagen.nl/Aanvraag.aspx/CreateCollectief">коллективный запрос</a>
                         <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/RequestLeaveSale">продажа</a>
                         <a href="https://ted.vrijedagen.nl/Saldo.aspx/MedewerkerSaldoList">сальдо</a>
@@ -136,7 +136,6 @@
         <div id="content-div" style="display: block;">
             <div id="error-div" class="ui-state-error padded c-hide">
             </div>
-            <h1>Here should be some modules</h1>
             <div id="departmentCapacity"></div>
             <div>
                 @RenderBody();

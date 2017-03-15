@@ -6,9 +6,15 @@
       <generator class="native" />
     </id>
     <property name="UserName" />
+    <property name="Password" />
     <property name="FirstName" />
     <property name="LastName" type="string"/>
     <property name="CompanyId" />
+
+    <property name="AccessFailedCount" />
+    <property name="LockoutEnabled" />
+    <property name="LockoutEnd" />
+
     <set name="Groups" table="User_Group"  lazy="false">
       <key column="UserId"/>
       <many-to-many class="SiteGroup" column="GroupId" />

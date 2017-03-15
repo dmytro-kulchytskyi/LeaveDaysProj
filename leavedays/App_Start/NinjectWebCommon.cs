@@ -80,13 +80,14 @@ namespace leavedays.App_Start
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<ICompanyRepository>().To<CompanyRepository>();
             kernel.Bind<IRequestRepository>().To<RequestRepository>();
+            kernel.Bind<IRoleRepository>().To<RoleRepository>();
 
-            kernel.Bind<UserManager<User, int>>().To<UserManager<User, int>>();
-            kernel.Bind<SignInManager<User, int>>().To<SignInManager<User, int>>();
+            kernel.Bind<UserManager<AppUser, int>>().To<UserManager<AppUser, int>>();
+            kernel.Bind<SignInManager<AppUser, int>>().To<SignInManager<AppUser, int>>();
             kernel.Bind<RoleManager<Role, int>>().To<RoleManager<Role, int>>();
 
             kernel.Bind<IRoleStore<Role, int>>().To<CustomRoleStore>();
-            kernel.Bind<IUserStore<User, int>>().To<CustomUserStore>();
+            kernel.Bind<IUserStore<AppUser, int>>().To<CustomUserStore>();
 
             kernel.Bind<IAuthenticationManager>().ToMethod(_ => HttpContext.Current.GetOwinContext().Authentication);
 
@@ -96,7 +97,7 @@ namespace leavedays.App_Start
                 var configuration = new Configuration();
 
                 configuration.Configure();
-                configuration.AddAssembly(typeof(User).Assembly);
+                configuration.AddAssembly(typeof(AppUser).Assembly);
                 ISessionFactory sessionFactory = configuration.BuildSessionFactory();
                 new SchemaUpdate(configuration).Execute(true, true);
 

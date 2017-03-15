@@ -8,7 +8,7 @@ using System.Web;
 
 namespace leavedays.Models
 {
-    public class User : IUser<int>
+    public class AppUser : IUser<int>
     {
         public virtual int Id { get; set; }
         public virtual string UserName { get; set; }
@@ -46,6 +46,6 @@ namespace leavedays.Models
                 _Modules = value;
             }
         }
-     
+
     }
 }

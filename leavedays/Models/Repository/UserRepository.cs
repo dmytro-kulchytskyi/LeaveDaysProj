@@ -19,32 +19,32 @@ namespace leavedays.Models.Repository
             this.sessionFactory = sessionFactory;
         }
 
-        public IList<User> GetAll()
+        public IList<AppUser> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public User GetById(int id)
+        public AppUser GetById(int id)
         {
             using (var sesson = sessionFactory.OpenSession())
             {
-                return sesson.Get<User>(id);
+                return sesson.Get<AppUser>(id);
             }
         }
 
 
-        public User GetByUserName(string userName)
+        public AppUser GetByUserName(string userName)
         {
             using (var session = sessionFactory.OpenSession())
             {
-                var user = session.CreateCriteria<User>()
+                var user = session.CreateCriteria<AppUser>()
                     .Add(Restrictions.Eq("UserName", userName))
-                    .UniqueResult<User>();
+                    .UniqueResult<AppUser>();
                 return user;
             }
         }
 
-        public int Save(User user)
+        public int Save(AppUser user)
         {
             using (var sesson = sessionFactory.OpenSession())
             {

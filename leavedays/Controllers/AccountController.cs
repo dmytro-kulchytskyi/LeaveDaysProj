@@ -14,11 +14,11 @@ namespace leavedays.Controllers
     public class AccountController : Controller
     {
 
-        private readonly UserManager<User, int> userManager;
-        private readonly SignInManager<User, int> signInManager;
+        private readonly UserManager<AppUser, int> userManager;
+        private readonly SignInManager<AppUser, int> signInManager;
         public AccountController(
-            UserManager<User, int> userManager,
-            SignInManager<User, int> signInManager)
+            UserManager<AppUser, int> userManager,
+            SignInManager<AppUser, int> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -26,31 +26,32 @@ namespace leavedays.Controllers
 
 
 
-        public async Task<ActionResult> CreateCustomer(string login="dimas", string pass="dimas")
+        public async Task<ActionResult> CreateCustomer()
         {
           
-                var user = new User() { UserName = login };
-                var result = await userManager.CreateAsync(user, pass);
+                var user = new AppUser() { UserName = "dimas", Password = "dimas123" };  
+                var result = await userManager.CreateAsync(user, "dimas123");
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
                 }
             return Content(result.Succeeded.ToString());
 
 
         }
 
-        [Authorize]
+        
         public ActionResult AddTo(string role)
         {
-            userManager.AddToRole(User.Identity.GetUserId<int>(), role);
-            return Content(userManager.IsInRole(User.Identity.GetUserId<int>(), role).ToString());
+            userManager.AddToRole(1, role);
+            return Content(userManager.IsInRole(1, role).ToString());
         }
 
         [HttpGet]
         public ActionResult Login()
         {
+            //userManager.GetRoles(userId);
+            //userManager.IsInRole(userId, roleName);
             return View();
         }
 
@@ -65,7 +66,7 @@ namespace leavedays.Controllers
             }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var user = new User { UserName = model.Email, Password = model.Password };
+            var user = new AppUser { UserName = model.Email, Password = model.Password };
             var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {

@@ -8,9 +8,9 @@ namespace leavedays.Models.Interfaces.Repository
 {
     public interface IUserRepository
     {
-        int Save(User user);
-        User GetById(int id);
-        User GetByUserName(string userName);
-        IList<User> GetAll();   
+        int Save(AppUser user);
+        AppUser GetById(int id);
+        AppUser GetByUserName(string userName);
+        IList<AppUser> GetAll();   
     }
 }

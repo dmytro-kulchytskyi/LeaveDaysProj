@@ -187,6 +187,7 @@
     <Content Include="Scripts\datepicker.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\analytics.js" />
+    <Content Include="Scripts\asset%281%29.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />

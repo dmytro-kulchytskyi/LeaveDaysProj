@@ -7,7 +7,7 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <div class="fieldBlock">
-    @using (Html.BeginForm("Create", "Request", FormMethod.Post))
+    @using (Html.BeginForm("Create", "Request", FormMethod.Post, new { id = "form" }))
     {
         @Html.AntiForgeryToken();
 
@@ -19,7 +19,7 @@
             <tr>
                 <td>
                     @Html.LabelFor(model => model.Status)
-                <td >
+                <td>
                     @Html.DisplayFor(model => model.Status, new { @class = "requestDisplay" })
             </tr>
             <tr>
@@ -28,7 +28,7 @@
                     @Html.ValidationMessageFor(model => model.VacationDates)
                 </td>
                 <td>
-                    @Html.HiddenFor(model => model.VacationDates, new { id = "calendar" })
+                    <input type="text" id="calendar" name="VacationDates" data-val="true" data-val-required="You must choise a date" style="visibility:hidden; position:absolute" />
                 </td>
             </tr>
             <tr>
@@ -50,6 +50,33 @@
         minDate: new Date(),
         inline: true,
         multipleDates: 2,
-        multipleSeparator: "-"
+        multipleDatesSeparator: "-",
+        onSelect: function (formattedDate, date, inst) {
+            var dates = "" + formattedDate;
+            dates = dates.split('-');
+            var result = formattedDate;
+            if (dates.length > 1) {
+                var firstYear = dates[0].split(".")[2];
+                var secondYear = dates[1].split(".")[2];
+                if (+firstYear > +secondYear) {
+                    result = dates[1] + "-" + dates[0];
+                }
+                else {
+                    var firstMonth = dates[0].split(".")[1];
+                    var secondMonth = dates[1].split(".")[1];
+                    if (+firstMonth > +secondMonth) {
+                        result = dates[1] + "-" + dates[0];
+                    }
+                    else {
+                        var firstDay = dates[0].split(".")[0];
+                        var secondDay = dates[1].split(".")[0];
+                        if (+firstDay > +secondDay) {
+                            result = dates[1] + "-" + dates[0];
+                        }
+                    }
+                }
+                document.getElementById("calendar").value = result;
+            }
+        }
     });
 </script>

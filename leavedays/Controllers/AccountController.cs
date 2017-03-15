@@ -1,4 +1,5 @@
 ﻿using leavedays.Models;
+using leavedays.Models.ViewModels.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -27,6 +28,7 @@ namespace leavedays.Controllers
 
         public ActionResult Login()
         {
+            userManager.AddToRoles
             return View();
         }
 

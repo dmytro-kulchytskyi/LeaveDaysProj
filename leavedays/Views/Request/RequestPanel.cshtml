@@ -2,7 +2,7 @@
 @model IEnumerable<ViewRequest>
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <html>
 <head>
@@ -10,29 +10,76 @@
     <title>RequestPanel</title>
     <style>
         table {
+            color:black;
             border-collapse: collapse;
+            border-left: 1px solid lightgray;
+            border-right: 1px solid lightgray;
         }
 
+        tr {
+            border-bottom:1px solid lightgray;
+            padding:5px 0px;
+        }
+
+            tr.head {
+                border-bottom: 1px solid lightgray;
+                background-color: #B5B5B5;
+            }
         td {
-            border: 1px solid black;
+            border-right: 1px solid lightgray;
+            padding:5px;
+            font-family: Arial;
+            font-size: 16px;
+            color: black;
+        }
+
+        td.hide{
+            border:none;
+        }
+
+        tr.head td {
             text-align: center;
+            font-size: 17px;
+            font-family: Arial;
+            font-weight:bold;
+        }
+        table form input[type="submit"]{
+            color:cadetblue;
+            background-color:transparent;
+            border:none;
+            text-decoration:underline;
         }
     </style>
 </head>
 <body>
     <table>
+        <tr class="head">
+            <td class="hide"></td>
+            <td>Vacation duration</td>
+            <td>Sent date</td>
+            <td>Base</td>
+            <td>Status</td>
+            <td>Action</td>
+        </tr>
         @foreach (ViewRequest request in Model)
         {
             <tr>
                 @using (Html.BeginForm("Confirm", "Request", FormMethod.Post))
                 {
-                    <td><input type="hidden" value="@request.Id" name="Id"></td>
+                    <td class="hide"><input type="hidden" value="@request.Id" name="Id"></td>
                     <td>@request.VacationInterval</td>
                     <td>@request.SigningDate</td>
                     <td>@request.RequestBase</td>
-                    <td>@request.IsAccepted</td>
-                    <td><input type="submit" name="acceptBtn" value="Accept" /></td>
-                    <td><input type="submit" name="rejectBtn" value="Reject" /></td>
+                    if (@request.IsAccepted)
+                    {
+                        <td>Accepted</td>
+                        <td><input type="submit" name="rejectBtn" value="Reject" /></td>
+                    }
+                    else
+                    {
+                        <td>NotAccepted</td>
+                        <td><input type="submit" name="acceptBtn" value="Accept" /></td>
+                    }
                 }
             </tr>
         }

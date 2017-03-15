@@ -4,26 +4,52 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <div class="fieldBlock">
     @using (Html.BeginForm("Create", "Request", FormMethod.Post))
     {
         @Html.AntiForgeryToken();
 
-        @Html.DisplayFor(model => model.UserId);<br />
         @Html.HiddenFor(model => model.UserId);
 
-        @Html.DisplayFor(model => model.CompanyId);<br />
         @Html.HiddenFor(model => model.CompanyId);
-
-        @Html.DisplayFor(model => model.Status);<br />
-        @Html.HiddenFor(model => model.Status);
-
-        <input type="hidden" id="dateField" class="datepicker-here" data-multiple-dates="2" data-inline="true" data-multiple-dates-separator="-" name="VacationDates" />
-
-        @Html.DisplayFor(model => model.RequestBase);<br />
-        @Html.EditorFor(model => model.RequestBase);<br />
-
+        @Html.ValidationSummary(true, "")
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Status)
+                <td >
+                    @Html.DisplayFor(model => model.Status, new { @class = "requestDisplay" })
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.VacationDates)<br />
+                    @Html.ValidationMessageFor(model => model.VacationDates)
+                </td>
+                <td>
+                    @Html.HiddenFor(model => model.VacationDates, new { id = "calendar" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RequestBase)<br />
+                    @Html.ValidationMessageFor(model => model.RequestBase)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.RequestBase, new { @class = "requestBase" })
+                </td>
+            </tr>
+        </table>
         <input type="submit" value="Create" />
     }
 </div>
 <script src="~/Scripts/datepicker.min.js"></script>
+<script>
+    $('#calendar').datepicker({
+        minDate: new Date(),
+        inline: true,
+        multipleDates: 2,
+        multipleSeparator: "-"
+    });
+</script>

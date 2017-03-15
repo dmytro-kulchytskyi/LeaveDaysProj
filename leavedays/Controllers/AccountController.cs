@@ -26,11 +26,11 @@ namespace leavedays.Controllers
 
 
 
-        public ActionResult Login()
-        {
-            userManager.AddToRoles
-            return View();
-        }
+        //public ActionResult Login()
+        //{
+        //    //userManager.AddToRoles
+        //    //return View();
+        //}
 
 
         ////[HttpPost]

@@ -204,7 +204,6 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\EditModel\EditRequest.cs" />
     <Compile Include="Models\Identity\CustomRoleStore.cs" />
-    <Compile Include="Models\Identity\CustomUserManager.cs" />
     <Compile Include="Models\Identity\CustomUserStore.cs" />
     <Compile Include="Models\License.cs" />
     <Compile Include="Models\Module.cs" />

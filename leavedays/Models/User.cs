@@ -21,8 +21,31 @@ namespace leavedays.Models
         public virtual bool LockoutEnabled { get; set; }
         public virtual DateTimeOffset LockoutEnd { get; set; }
 
-        public virtual ISet<Role> Roles { get; set; }
-        public virtual ISet<Module> Modules { get; set; }
+        private ISet<Role> _Roles = new HashSet<Role>();
+        public virtual ISet<Role> Roles
+        {
+            get
+            {
+                return _Roles;
+            }
+            set
+            {
+                _Roles = value;
+            }
+        }
+
+        private ISet<Module> _Modules = new HashSet<Module>();
+        public virtual ISet<Module> Modules
+        {
+            get
+            {
+                return _Modules;
+            }
+            set
+            {
+                _Modules = value;
+            }
+        }
      
     }
 }

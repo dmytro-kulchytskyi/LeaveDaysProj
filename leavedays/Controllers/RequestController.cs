@@ -50,9 +50,9 @@ namespace leavedays.Controllers
         }
 
         [HttpPost]
-        public ActionResult Confirm(int Id, string buttonStatus)
+        public ActionResult Confirm(int Id, string acceptBtn)
         {
-            if(buttonStatus == "Accept")
+            if(acceptBtn == "Accept")
             {
                 requestService.Accept(Id);
                 return RedirectToAction("Confirm");

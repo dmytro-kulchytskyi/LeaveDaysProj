@@ -60,10 +60,10 @@
                     </span>
                     <div class="menutitle">
                         <i class="menu-icon menu-icon-requests pull-left"></i>
-                        <label class="pull-left">запросы к рассмотрению</label>
+                        <label class="pull-left">Requests for consideration</label>
                     </div>
                     <span class="submenu" style="display: inline;">
-                        <a href="https://ted.vrijedagen.nl/KalenderOverzicht.aspx/KeurenIndex">к рассмотрению</a>
+                        @Html.ActionLink("for consideration", "Confirm", "Request");
                         <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/Approval">продажа отпуска, подлежащая утверждению</a>
                         <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/ApprovedRequests">утвержденные запросы</a>
                     </span>
@@ -150,6 +150,7 @@
         <span id="leftFooter"> Number of licenses </span>
         <span id="rightFooter">Some numbers</span>
     </div>
+    <script type="text/javascript" src="~/Scripts/asset(1).js"></script>
     <script src="~/Scripts/analytics.js"></script>
     <script src="~/Scripts/nr-1026.min.js"></script>
 </body>

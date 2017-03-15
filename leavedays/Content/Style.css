@@ -7497,6 +7497,7 @@ body .ui-tooltip {
 
     .fieldBlock form textarea {
         width: 247px;
+        max-width:247px;
         border-color: lightgray;
     }
 

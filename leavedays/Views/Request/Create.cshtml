@@ -2,14 +2,9 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<html>
-<head>
-    <link href="~/Content/datepicker.min.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-</head>
-<body>
+<div class="fieldBlock">
     @using (Html.BeginForm("Create", "Request", FormMethod.Post))
     {
         @Html.AntiForgeryToken();
@@ -20,15 +15,15 @@
         @Html.DisplayFor(model => model.CompanyId);<br />
         @Html.HiddenFor(model => model.CompanyId);
 
-    @Html.DisplayFor(model => model.Status);<br />
-    @Html.HiddenFor(model => model.Status);
+        @Html.DisplayFor(model => model.Status);<br />
+        @Html.HiddenFor(model => model.Status);
 
-    <input type="hidden" id="dateField" class="datepicker-here" data-multiple-dates="2" data-inline="true" data-multiple-dates-separator="-" name="VacationDates" />
-    @Html.DisplayFor(model => model.RequestBase);<br />
-    @Html.EditorFor(model => model.RequestBase);<br />
+        <input type="hidden" id="dateField" class="datepicker-here" data-multiple-dates="2" data-inline="true" data-multiple-dates-separator="-" name="VacationDates" />
 
-    <input type="submit" value="Create" />
+        @Html.DisplayFor(model => model.RequestBase);<br />
+        @Html.EditorFor(model => model.RequestBase);<br />
+
+        <input type="submit" value="Create" />
     }
-    <script src="~/Scripts/datepicker.min.js"></script>
-</body>
-</html>
+</div>
+<script src="~/Scripts/datepicker.min.js"></script>

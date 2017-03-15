@@ -173,6 +173,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\img\helpicon_gray.gif" />
+    <Content Include="Content\img\logo-leavedays-small.png" />
+    <Content Include="Content\img\top_banner.jpg" />
+    <Content Include="Content\Style.css" />
     <Content Include="Content\datepicker.min.css" />
     <Content Include="Global.asax" />
     <EmbeddedResource Include="Models\Nhibernate\User.hbm.xml" />
@@ -182,6 +186,7 @@
     <EmbeddedResource Include="Models\Nhibernate\Request.hbm.xml" />
     <Content Include="Scripts\datepicker.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\analytics.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
@@ -228,6 +233,7 @@
     <Content Include="Views\Request\Create.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Request\RequestPanel.cshtml" />
+    <Content Include="Scripts\nr-1026.min.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

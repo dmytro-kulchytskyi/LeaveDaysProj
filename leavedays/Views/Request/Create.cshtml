@@ -23,7 +23,7 @@
     @Html.DisplayFor(model => model.Status);<br />
     @Html.HiddenFor(model => model.Status);
 
-    <input type="hidden" class="datepicker-here" data-multiple-dates="2" data-inline="true" data-multiple-dates-separator="-" name="VacationDates" />
+    <input type="hidden" id="dateField" class="datepicker-here" data-multiple-dates="2" data-inline="true" data-multiple-dates-separator="-" name="VacationDates" />
     @Html.DisplayFor(model => model.RequestBase);<br />
     @Html.EditorFor(model => model.RequestBase);<br />
 

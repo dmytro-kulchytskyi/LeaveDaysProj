@@ -10,20 +10,20 @@ using leavedays.Models.Repository.Interfaces;
 
 namespace leavedays.Models.Identity
 {
-    public class CustomRoleStore : IRoleStore<SiteGroup, int>
+    public class CustomRoleStore : IRoleStore<Role, int>
     {
-        private readonly ISiteGroupRepository siteGroupRepository;
-        public CustomRoleStore(ISiteGroupRepository siteGroupRepository)
+        private readonly IRoleRepository siteGroupRepository;
+        public CustomRoleStore(IRoleRepository siteGroupRepository)
         {
             this.siteGroupRepository = siteGroupRepository;
         }
         
-        public Task CreateAsync(SiteGroup role)
+        public Task CreateAsync(Role role)
         {
             return Task.FromResult(siteGroupRepository.Save(role));
         }
 
-        public Task DeleteAsync(SiteGroup role)
+        public Task DeleteAsync(Role role)
         {
             throw new NotImplementedException();
         }
@@ -33,17 +33,17 @@ namespace leavedays.Models.Identity
             //throw new NotImplementedException();
         }
 
-        public Task<SiteGroup> FindByIdAsync(int roleId)
+        public Task<Role> FindByIdAsync(int roleId)
         {
             return Task.FromResult(siteGroupRepository.GetById(roleId));
         }
 
-        public Task<SiteGroup> FindByNameAsync(string roleName)
+        public Task<Role> FindByNameAsync(string roleName)
         {
             return Task.FromResult(siteGroupRepository.GetByName(roleName));
         }
 
-        public Task UpdateAsync(SiteGroup role)
+        public Task UpdateAsync(Role role)
         {
             return Task.FromResult(siteGroupRepository.Save(role));
         }

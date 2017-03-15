@@ -26,12 +26,33 @@ namespace leavedays.Controllers
 
 
 
-        public ActionResult Login()
+        public async Task<ActionResult> CreateCustomer(string login="dimas", string pass="dimas")
         {
-            userManager.AddToRoles
-            return View();
+          
+                var user = new User() { UserName = login };
+                var result = await userManager.CreateAsync(user, pass);
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                }
+            return Content(result.Succeeded.ToString());
+
+
         }
 
+        [Authorize]
+        public ActionResult AddTo(string role)
+        {
+            userManager.AddToRole(User.Identity.GetUserId<int>(), role);
+            return Content(userManager.IsInRole(User.Identity.GetUserId<int>(), role).ToString());
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
         [HttpPost]
         [AllowAnonymous]

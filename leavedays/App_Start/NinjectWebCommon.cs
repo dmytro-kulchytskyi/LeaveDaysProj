@@ -16,24 +16,29 @@ namespace leavedays.App_Start
     using Models;
     using Services;
     using Models.Interfaces.Repository;
-    using NewsWebSite.Models.Repository;
+    using leavedays.Models.Repository;
     using Models.Repository.Interfaces;
     using Models.Repository;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Models.Identity;
+    using Microsoft.Owin.Security;
 
-    public static class NinjectWebCommon 
+
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -41,7 +46,7 @@ namespace leavedays.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -76,6 +81,16 @@ namespace leavedays.App_Start
             kernel.Bind<ICompanyRepository>().To<CompanyRepository>();
             kernel.Bind<IRequestRepository>().To<RequestRepository>();
 
+            kernel.Bind<UserManager<User, int>>().To<UserManager<User, int>>();
+            kernel.Bind<SignInManager<User, int>>().To<SignInManager<User, int>>();
+            kernel.Bind<RoleManager<Role, int>>().To<RoleManager<Role, int>>();
+
+            kernel.Bind<IRoleStore<Role, int>>().To<CustomRoleStore>();
+            kernel.Bind<IUserStore<User, int>>().To<CustomUserStore>();
+
+            kernel.Bind<IAuthenticationManager>().ToMethod(_ => HttpContext.Current.GetOwinContext().Authentication);
+
+
             kernel.Bind<ISessionFactory>().ToMethod(context =>
             {
                 var configuration = new Configuration();
@@ -88,8 +103,8 @@ namespace leavedays.App_Start
                 return sessionFactory;
             }).InSingletonScope();
 
-           
 
-        }        
+
+        }
     }
 }

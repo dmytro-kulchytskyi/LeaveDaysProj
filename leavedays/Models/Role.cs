@@ -6,9 +6,10 @@ using System.Web;
 
 namespace leavedays.Models
 {
-    public class SiteGroup : IRole<int>
+    public class Role : IRole<int>
     {
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }
     }
+
 }

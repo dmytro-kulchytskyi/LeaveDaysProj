@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace leavedays.Models.Repository.Interfaces
 {
-    public interface ISiteGroupRepository
+    public interface IRoleRepository
     {
-        SiteGroup GetById(int Id);
-        SiteGroup GetByName(string Name);
-        int Save(SiteGroup group);
+        Role GetById(int id);
+        Role GetByName(string name);
+        int Save(Role group);
 
     }
 }

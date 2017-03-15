@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using leavedays.Models;
 
-namespace NewsWebSite.Models.Repository
+namespace leavedays.Models.Repository
 {
     public class UserRepository : IUserRepository
     {

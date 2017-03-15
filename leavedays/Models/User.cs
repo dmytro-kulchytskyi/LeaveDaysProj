@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace leavedays.Models
@@ -14,11 +16,13 @@ namespace leavedays.Models
         public virtual int CompanyId { get; set; }
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
-        public virtual IEnumerable<SiteGroup> Groups { get; set; }
-        public virtual IEnumerable<Module> Modules { get; set; }
 
         public virtual int AccessFailedCount { get; set; }
         public virtual bool LockoutEnabled { get; set; }
         public virtual DateTimeOffset LockoutEnd { get; set; }
+
+        public virtual ISet<Role> Roles { get; set; }
+        public virtual ISet<Module> Modules { get; set; }
+     
     }
 }

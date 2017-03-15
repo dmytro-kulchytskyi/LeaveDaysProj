@@ -245,6 +245,7 @@
     <Content Include="Views\Request\RequestPanel.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Scripts\nr-1026.min.js" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -256,7 +257,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\ViewModels\Home\" />
     <Folder Include="Models\ViewModels\Request\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

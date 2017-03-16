@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -27,9 +28,9 @@ namespace leavedays.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            AppUser currentUser = userManager.FindById(User.Identity.GetUserId<int>());
+            var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             EditRequest request = new EditRequest
             {
                 Status = "New",
@@ -48,10 +49,10 @@ namespace leavedays.Controllers
         }
 
         [HttpGet]
-        public ActionResult Confirm()
+        public async Task<ActionResult> Confirm()
         {
-            AppUser currentUser = userManager.FindById(User.Identity.GetUserId<int>());
-            if (userManager.IsInRole(currentUser.Id, "Admin"))
+            var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
+            if (await userManager.IsInRoleAsync(currentUser.Id, "Admin"))
             {
                 return View("RequestPanel", requestService.GetByCompanyId(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
             }

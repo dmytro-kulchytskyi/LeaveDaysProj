@@ -3,9 +3,11 @@ using leavedays.Models.ViewModels.Account;
 using leavedays.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -29,10 +31,18 @@ namespace leavedays.Controllers
             this.signInManager = signInManager;
         }
 
-        // [Authorize]
-        public string AddMeTo(string role = "")
+        private IAuthenticationManager AuthenticationManager
         {
-            return User.Identity.GetUserId<int>().ToString();
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        // [Authorize]
+        public string info(string role = "")
+        {
+            return User.Identity.IsAuthenticated + " ID: " + User.Identity.GetUserId<int>();
             var res = userManager.AddToRole(User.Identity.GetUserId<int>(), role);
             //return Content(res.Succeeded.ToString());
         }
@@ -83,7 +93,7 @@ namespace leavedays.Controllers
             {
                 case SignInStatus.Success:
                     {
-                        if (string.IsNullOrEmpty(returnUrl) || returnUrl == "/") return Content("OK");
+                        if (string.IsNullOrEmpty(returnUrl) || returnUrl == "/") return RedirectToAction("Index", "Home");
                         return Redirect(returnUrl);
                     }
                 //case SignInStatus.LockedOut:
@@ -125,7 +135,7 @@ namespace leavedays.Controllers
                 ModelState.AddModelError("", "Error while creating new customer");
                 return View(model);
             }
-            return Content(result.Succeeded.ToString());
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -156,7 +166,13 @@ namespace leavedays.Controllers
                 return View(model);
             }
 
-            return Content(result.Succeeded.ToString());
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

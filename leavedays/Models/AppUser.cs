@@ -47,5 +47,11 @@ namespace leavedays.Models
             }
         }
 
+     
+
+        //public virtual Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<IUser<string>> manager)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

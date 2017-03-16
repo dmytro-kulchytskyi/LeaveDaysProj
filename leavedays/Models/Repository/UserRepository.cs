@@ -1,5 +1,4 @@
-﻿using leavedays.Models.Interfaces.Repository;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using leavedays.Models;
+using leavedays.Models.Repository.Interfaces;
 
 namespace leavedays.Models.Repository
 {

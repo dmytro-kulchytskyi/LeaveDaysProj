@@ -15,8 +15,6 @@ namespace leavedays.App_Start
     using NHibernate.Tool.hbm2ddl;
     using Models;
     using Services;
-    using Models.Interfaces.Repository;
-    using leavedays.Models.Repository;
     using Models.Repository.Interfaces;
     using Models.Repository;
     using Microsoft.AspNet.Identity;

@@ -11,6 +11,6 @@ namespace leavedays.Models.Repository.Interfaces
         Role GetById(int id);
         Role GetByName(string name);
         int Save(Role group);
-
+        IList<Role> GetAll();
     }
 }

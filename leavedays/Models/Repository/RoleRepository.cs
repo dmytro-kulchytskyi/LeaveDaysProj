@@ -17,6 +17,14 @@ namespace leavedays.Models.Repository
             this.sessionFactory = sessionFactory;
         }
 
+        public IList<Role> GetAll()
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                return session.CreateCriteria<Role>().List<Role>();
+            }
+        }
+
         public Role GetById(int id)
         {
             using (var session = sessionFactory.OpenSession())

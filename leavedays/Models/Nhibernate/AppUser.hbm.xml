@@ -14,18 +14,18 @@
     <property name="AccessFailedCount" />
     <property name="LockoutEnabled" />
     <property name="LockoutEnd" />
-   
 
-    <set name="Roles" table="User_Role"  lazy="false">
+    <property name="Roles" />
+    <!--<set name="Roles" table="User_Role"  lazy="false">
       <key column="UserId"/>
       <many-to-many class="Role" column="RoleId" />
-    </set>
+    </set>-->
     <set name="Modules" table="User_Module"  lazy="false">
       <key column="UserId"/>
       <many-to-many class="Module" column="ModuleId" />
     </set>
-    
-  
+
+
   </class>
 
 </hibernate-mapping>

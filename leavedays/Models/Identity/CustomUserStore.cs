@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
-using leavedays.Models.Interfaces.Repository;
 using leavedays.Models.Repository.Interfaces;
 
 namespace leavedays.Models.Identity
@@ -21,8 +20,9 @@ namespace leavedays.Models.Identity
 
         public Task AddToRoleAsync(AppUser user, string roleName)
         {
-            user.Roles.Add(roleRepository.GetByName(roleName));
-   
+            if (string.IsNullOrWhiteSpace(user.Roles)) user.Roles = ",";
+            user.Roles += roleName+",";
+
             return Task.FromResult(true);
         }
 
@@ -38,7 +38,7 @@ namespace leavedays.Models.Identity
 
         public void Dispose()
         {
-          //  throw new NotImplementedException();
+            //  throw new NotImplementedException();
         }
 
         public Task<AppUser> FindByIdAsync(int userId)
@@ -73,7 +73,7 @@ namespace leavedays.Models.Identity
 
         public Task<IList<string>> GetRolesAsync(AppUser user)
         {
-            return Task.FromResult(user.Roles.Select(x => x.Name).ToList() as IList<string>);
+            return Task.FromResult(user.Roles.Trim(',').Split(',').ToList() as IList<string>);
         }
 
         public Task<bool> GetTwoFactorEnabledAsync(AppUser user)
@@ -94,9 +94,8 @@ namespace leavedays.Models.Identity
 
         public Task<bool> IsInRoleAsync(AppUser user, string roleName)
         {
-            foreach (var role in user.Roles)
-                if (role.Name == roleName) return Task.FromResult(true);
-            return Task.FromResult(false);
+            
+            return Task.FromResult(user.Roles.Contains("," + roleName + ","));
         }
 
         public Task RemoveFromRoleAsync(AppUser user, string roleName)

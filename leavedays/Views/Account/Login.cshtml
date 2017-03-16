@@ -1,7 +1,7 @@
 ﻿@using leavedays.Models.ViewModels.Account
 @model LoginViewModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Log in";
 }
 <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -20,17 +20,19 @@
             @Html.TextBoxFor(m => m.UserName)
             @Html.ValidationMessageFor(m => m.UserName)
         </div>
+        <br />
         <div>
             @Html.LabelFor(m => m.Password)
             @Html.PasswordFor(m => m.Password)
             @Html.ValidationMessageFor(m => m.Password)
         </div>
+        <br />
         <div>
             @Html.LabelFor(m => m.RememberMe)
             @Html.CheckBoxFor(m => m.RememberMe)
         </div>
-            <br />
-            @Html.ValidationSummary(true, "")  
-        <input type="submit" value="SignIn" />
+        <br />
+            @Html.ValidationSummary(true, "")
+            <input type="submit" value="SignIn" />
     }
 </div>

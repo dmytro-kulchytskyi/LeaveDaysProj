@@ -10,7 +10,7 @@ namespace leavedays.Models
 {
     public class AppUser : IUser<int>
     {
-        public virtual int Id { get; set; }
+        public virtual int Id { get; set; } = 0;
         public virtual string UserName { get; set; }
         public virtual string Password { get; set; }
         public virtual int CompanyId { get; set; }

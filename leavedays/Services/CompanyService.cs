@@ -29,12 +29,7 @@ namespace leavedays.Services
                 return "";
             else
             {
-                var allRoles = roleRepository.GetAll();
-                foreach (var role in allRoles)
-                {
-                    if (!roles.Contains(role.Name)) allRoles.Remove(role);
-                }
-                return "," + string.Join(",", allRoles.Select(r => r.Name)) + ",";
+                return "," + string.Join(",", roles) + ",";
             }
         }
 

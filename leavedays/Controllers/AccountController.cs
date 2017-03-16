@@ -29,6 +29,13 @@ namespace leavedays.Controllers
             this.signInManager = signInManager;
         }
 
+        // [Authorize]
+        public string AddMeTo(string role = "")
+        {
+            return User.Identity.GetUserId<int>().ToString();
+            var res = userManager.AddToRole(User.Identity.GetUserId<int>(), role);
+            //return Content(res.Succeeded.ToString());
+        }
 
 
         public async Task<ActionResult> CreateCustomer()
@@ -103,17 +110,15 @@ namespace leavedays.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer")]
-        public async Task<ActionResult> CreateEmployee(CreateEmployeeViewModel model)
+        public async Task<ActionResult> CreateEmployee(CreateEmployeeViewModel model, int companyId = 0)
         {
             if (!ModelState.IsValid)
             {
                 model.Password = "";
                 return View(model);
             }
-            var companyId = companyService.GetUserById(User.Identity.GetUserId<int>()).CompanyId;
 
-            var user = new AppUser() { UserName = model.UserName, Roles = ",customer" + companyService.GetRolesFromLine(model.RolesLine), CompanyId = companyId };
+            var user = new AppUser() { UserName = model.UserName, Roles = ",Customer" + companyService.GetRolesFromLine(model.RolesLine), CompanyId = companyId };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
@@ -124,19 +129,17 @@ namespace leavedays.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "FinanceAdmin")]
         public ActionResult CreateCompany()
         {
-            return View();
+            var model = new CreateCompanyViewModel();
+            model.Roles = new string[] { "Worker", "Manager" };
+            return View(model);
         }
 
         [HttpPost]
-        [Authorize(Roles = "FinanceAdmin")]
         public async Task<ActionResult> CreateCompany(CreateCompanyViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-
-
             var company = new Company()
             {
                 FullName = model.CompanyName,
@@ -152,7 +155,7 @@ namespace leavedays.Controllers
                 ModelState.AddModelError("", "Error while creating new customer");
                 return View(model);
             }
-          
+
             return Content(result.Succeeded.ToString());
         }
     }

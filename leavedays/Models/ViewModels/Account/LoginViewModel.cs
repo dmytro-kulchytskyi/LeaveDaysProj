@@ -10,7 +10,7 @@ namespace leavedays.Models.ViewModels.Account
     {
         [Required]
         [Display(Name = "UserName")]
-        [EmailAddress]
+        
         public string UserName { get; set; }
 
         [Required]

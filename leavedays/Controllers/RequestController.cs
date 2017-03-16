@@ -31,7 +31,7 @@ namespace leavedays.Controllers
         public async Task<ActionResult> Create()
         {
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
-            EditRequest request = new EditRequest
+            EditRequest request = new EditRequest()
             {
                 Status = "New",
                 UserId = currentUser.Id,
@@ -52,7 +52,7 @@ namespace leavedays.Controllers
         public async Task<ActionResult> Confirm()
         {
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
-            if (await userManager.IsInRoleAsync(currentUser.Id, "Admin"))
+            if (await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
                 return View("RequestPanel", requestService.GetByCompanyId(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
             }

@@ -5,12 +5,12 @@
     <id name="Id" column="RequestId" type="int">
       <generator class="native" />
     </id>
-    <property name="UserId" />
     <property name="CompanyId" />
     <property name="Status" />
     <property name="RequestBase" />
     <property name="SigningDate" />
     <property name="VacationDates" />
     <property name="IsAccepted" />
+  <many-to-one name="User" class="AppUser" column="UserId" cascade = "save-update"/>
   </class>
 </hibernate-mapping>

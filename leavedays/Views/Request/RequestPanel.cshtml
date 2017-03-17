@@ -9,76 +9,99 @@
     <meta name="viewport" content="width=device-width" />
     <title>RequestPanel</title>
     <style>
-        table {
-            color:black;
+        .table_price {
             border-collapse: collapse;
-            border-left: 1px solid lightgray;
-            border-right: 1px solid lightgray;
+            border-left: 3px solid #F79361;
+            border-right: 3px solid #F79361;
+            border-bottom: 3px solid #F79361;
+            font-family: "Lucida Grande", sans-serif;
         }
 
-        tr {
-            border-bottom:1px solid lightgray;
-            padding:5px 0px;
-        }
-
-            tr.head {
-                border-bottom: 1px solid lightgray;
-                background-color: #B5B5B5;
+            .table_price caption {
+                background: #F79361;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                padding: 10px;
+                box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
+                color: white;
+                font-family: "Roboto Slab",serif;
+                font-style: normal;
+                font-size: 26px;
+                text-align: center;
+                margin: 0;
             }
-        td {
-            border-right: 1px solid lightgray;
-            padding:5px;
-            font-family: Arial;
-            font-size: 16px;
-            color: black;
-        }
+
+            .table_price td, .table_price th {
+                padding: 10px;
+            }
+
+            .table_price th {
+                text-align: left;
+                font-size: 18px;
+            }
+
+            .table_price tr:nth-child(2n) {
+                background: #E5E5E5;
+            }
+
+            .table_price td:last-of-type {
+                text-align: center;
+            }
+
+            .table_price .sel {
+                display: inline-block;
+                padding: 5px 10px;
+                background: #F79361;
+                box-shadow: 2px 2px 0 0 #a22800;
+                position: relative;
+                border:none;
+            }
+
+                .table_price .sel:hover {
+                    box-shadow: none;
+                    top: 2px;
+                    left: 2px;
+                }
 
         td.hide{
             border:none;
-        }
-
-        tr.head td {
-            text-align: center;
-            font-size: 17px;
-            font-family: Arial;
-            font-weight:bold;
-        }
-        table form input[type="submit"]{
-            color:cadetblue;
             background-color:transparent;
-            border:none;
-            text-decoration:underline;
+            width:0px;
         }
     </style>
 </head>
 <body>
-    <table>
+    <table class="table_price">
+        <caption>Requests</caption>
         <tr class="head">
-            <td class="hide"></td>
-            <td>Vacation duration</td>
-            <td>Sent date</td>
-            <td>Base</td>
-            <td>Status</td>
-            <td>Action</td>
+            <th>User</th>
+            <th>Vacation duration</th>
+            <th>Sent date</th>
+            <th>Base</th>
+            <th>Status</th>
+            <th>Action</th>
         </tr>
         @foreach (ViewRequest request in Model)
         {
             <tr>
                 @using (Html.BeginForm("Confirm", "Request", FormMethod.Post))
                 {
-                    <td class="hide"><input type="hidden" value="@request.Id" name="Id"></td>
-                    <td>@request.VacationInterval</td>
+                    <td>@request.UserName</td>
+                    <td>
+                        <input type="hidden" value="@request.Id" name="Id">
+                @request.VacationInterval
+                    </td>
                     <td>@request.SigningDate</td>
                     <td>@request.RequestBase</td>
                     if (@request.IsAccepted)
                     {
                         <td>Accepted</td>
-                        <td><input type="submit" name="rejectBtn" value="Reject" /></td>
+                        <td><input class="sel" type="submit" name="rejectBtn" value="Reject" /></td>
                     }
                     else
                     {
                         <td>NotAccepted</td>
-                        <td><input type="submit" name="acceptBtn" value="Accept" /></td>
+                        <td><input  class="sel" type="submit" name="acceptBtn" value="Accept" /></td>
                     }
                 }
             </tr>

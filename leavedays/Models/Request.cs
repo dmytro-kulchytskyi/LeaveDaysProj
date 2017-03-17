@@ -8,7 +8,7 @@ namespace leavedays.Models
     public class Request
     {
         public virtual int Id { get; set; }
-        public virtual int UserId { get; set; }
+        public virtual AppUser User { get; set; }
         public virtual int CompanyId { get; set; }
         public virtual string Status { get; set; }
         public virtual string RequestBase { get; set; }

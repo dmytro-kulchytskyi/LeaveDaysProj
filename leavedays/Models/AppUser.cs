@@ -47,7 +47,18 @@ namespace leavedays.Models
             }
         }
 
-     
+        private IList<Request> _requests;
+        public virtual IList<Request> Requests
+        {
+            get
+            {
+                return _requests ?? (_requests = new List<Request>());
+            }
+            set
+            {
+                _requests = value;
+            }
+        }
 
         //public virtual Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<IUser<string>> manager)
         //{

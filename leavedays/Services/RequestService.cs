@@ -2,6 +2,7 @@
 using leavedays.Models.EditModel;
 using leavedays.Models.Repository.Interfaces;
 using leavedays.Models.ViewModel;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,18 @@ namespace leavedays.Services
     public class RequestService
     {
         private readonly IRequestRepository requestRepository;
-        public RequestService(IRequestRepository requestRepository)
+        private readonly IUserRepository userRepository;
+        public RequestService(IRequestRepository requestRepository, IUserRepository userRepository)
         {
             this.requestRepository = requestRepository;
+            this.userRepository = userRepository;
         }
 
         public void Save(EditRequest editRequest)
         {
             Request request = new Request
             {
-                UserId = editRequest.UserId,
+                User = userRepository.GetById(editRequest.UserId),
                 CompanyId = editRequest.CompanyId,
                 Status = editRequest.Status,
                 RequestBase = editRequest.RequestBase,

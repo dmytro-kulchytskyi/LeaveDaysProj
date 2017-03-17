@@ -24,15 +24,17 @@ namespace leavedays.Models.Repository
         {
             using (var session = sessionFactory.OpenSession())
             {
-                var result = session.CreateCriteria<Request>().
-                    Add(Restrictions.Eq("CompanyId", companyId))
+                var criteria = session.CreateCriteria<Request>();
+                criteria.CreateAlias("User", "user");
+                criteria.Add(Restrictions.Eq("CompanyId", companyId))
                     .SetProjection(Projections.ProjectionList()
                     .Add(Projections.Id(), "Id")
                     .Add(Projections.Property("VacationDates"), "VacationInterval")
                     .Add(Projections.Property("RequestBase"), "RequestBase")
                     .Add(Projections.Property("SigningDate"), "SigningDate")
-                    .Add(Projections.Property("IsAccepted"), "IsAccepted"))
-                    .SetResultTransformer(Transformers.AliasToBean<ViewRequest>())
+                    .Add(Projections.Property("IsAccepted"), "IsAccepted")
+                    .Add(Projections.Property("user.UserName"), "UserName"));
+                var result = criteria.SetResultTransformer(Transformers.AliasToBean<ViewRequest>())
                     .List<ViewRequest>();
                 return result;
             }

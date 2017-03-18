@@ -63,9 +63,9 @@
                         <label class="pull-left">Requests for consideration</label>
                     </div>
                     <span class="submenu" style="display: inline;">
-                        @Html.ActionLink("for consideration", "Confirm", "Request");
+                        @Html.ActionLink("for consideration", "ConfirmNew", "Request");
                         <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/Approval">продажа отпуска, подлежащая утверждению</a>
-                        <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/ApprovedRequests">утвержденные запросы</a>
+                        @Html.ActionLink("confirmed request", "ShowConfirmed", "Request")
                     </span>
                     <div class="menutitle">
                         <i class="menu-icon menu-icon-report pull-left"></i>

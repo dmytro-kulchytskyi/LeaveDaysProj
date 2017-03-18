@@ -250,6 +250,7 @@
     <Content Include="Scripts\nr-1026.min.js" />
     <Content Include="Views\Account\CreateEmployee.cshtml" />
     <Content Include="Views\Account\CreateCompany.cshtml" />
+    <Content Include="Views\Request\ConfirmedRequest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

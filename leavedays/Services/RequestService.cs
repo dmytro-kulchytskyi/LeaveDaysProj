@@ -30,27 +30,33 @@ namespace leavedays.Services
                 Status = editRequest.Status,
                 RequestBase = editRequest.RequestBase,
                 SigningDate = DateTime.Now,
-                VacationDates = editRequest.VacationDates
+                VacationDates = editRequest.VacationDates,
+                IsAccepted = RequestStatus.InProgress
             };
             requestRepository.Save(request);
         }
 
-        public IEnumerable<ViewRequest> GetByCompanyId(int id)
+        public IEnumerable<ViewRequest> GetInProgressRequest(int id)
         {
-            return requestRepository.GetByCompanyId(id);
+            return requestRepository.GetByRequestStatus(id, RequestStatus.InProgress);
+        }
+
+        public IEnumerable<ViewRequest> GetConfirmedRequest(int id)
+        {
+            return requestRepository.GetByRequestStatus(id, RequestStatus.Accepted, RequestStatus.NotAccepted);
         }
 
         public void Accept(int id)
         {
             Request request = requestRepository.GetById(id);
-            request.IsAccepted = true;
+            request.IsAccepted = RequestStatus.Accepted;
             requestRepository.Save(request);
         }
 
         public void Reject(int id)
         {
             Request request = requestRepository.GetById(id);
-            request.IsAccepted = false;
+            request.IsAccepted = RequestStatus.NotAccepted;
             requestRepository.Save(request);
         }
 

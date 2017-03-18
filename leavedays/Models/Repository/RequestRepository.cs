@@ -20,13 +20,14 @@ namespace leavedays.Models.Repository
             this.sessionFactory = sessionFactory;
         }
 
-        public IEnumerable<ViewRequest> GetByCompanyId(int companyId)
+        public IEnumerable<ViewRequest> GetByRequestStatus(int companyId, params RequestStatus[] status)
         {
             using (var session = sessionFactory.OpenSession())
             {
                 var criteria = session.CreateCriteria<Request>();
                 criteria.CreateAlias("User", "user");
                 criteria.Add(Restrictions.Eq("CompanyId", companyId))
+                    .Add(Restrictions.In("IsAccepted", status))
                     .SetProjection(Projections.ProjectionList()
                     .Add(Projections.Id(), "Id")
                     .Add(Projections.Property("VacationDates"), "VacationInterval")
@@ -54,6 +55,16 @@ namespace leavedays.Models.Repository
             {
                 var result = session.CreateCriteria<Request>().
                     Add(Restrictions.Eq("UserId", userId)).List<Request>();
+                return result;
+            }
+        }
+
+        public IEnumerable<Request> GetByCompanyId(int companyId)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                var result = session.CreateCriteria<Request>().
+                    Add(Restrictions.Eq("CompanyId", companyId)).List<Request>();
                 return result;
             }
         }

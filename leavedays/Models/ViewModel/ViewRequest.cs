@@ -12,6 +12,6 @@ namespace leavedays.Models.ViewModel
         public string VacationInterval { get; set; }
         public string RequestBase { get; set; }
         public DateTime SigningDate { get; set; }
-        public bool IsAccepted { get; set; }
+        public RequestStatus IsAccepted { get; set; }
     }
 }

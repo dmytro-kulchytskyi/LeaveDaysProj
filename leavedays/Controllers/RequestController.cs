@@ -49,27 +49,37 @@ namespace leavedays.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Confirm()
+        public async Task<ActionResult> ConfirmNew()
         {
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
-                return View("RequestPanel", requestService.GetByCompanyId(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
+                return View("RequestPanel", requestService.GetInProgressRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
             }
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public ActionResult Confirm(int Id, string acceptBtn)
+        public ActionResult ConfirmNew(int Id, string acceptBtn)
         {
             if (acceptBtn == "Accept")
             {
                 requestService.Accept(Id);
-                return RedirectToAction("Confirm");
+                return RedirectToAction("ConfirmNew");
             }
             requestService.Reject(Id);
-            return RedirectToAction("Confirm");
+            return RedirectToAction("ConfirmNew");
         }
 
+        [HttpGet]
+        public async Task<ActionResult> ShowConfirmed()
+        {
+            var currentUser =await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
+            if(await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
+            {
+                return View("ConfirmedRequest", requestService.GetConfirmedRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
+            }
+            return View("Index", "Home");
+        }
     }
 }

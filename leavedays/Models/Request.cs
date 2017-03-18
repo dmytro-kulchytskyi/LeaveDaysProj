@@ -14,6 +14,13 @@ namespace leavedays.Models
         public virtual string RequestBase { get; set; }
         public virtual DateTime SigningDate { get; set; }
         public virtual string VacationDates { get; set; }
-        public virtual bool IsAccepted { get; set; }
+        public virtual RequestStatus IsAccepted { get; set; }
+    }
+
+    public enum RequestStatus
+    {
+        Accepted = 1,
+        NotAccepted,
+        InProgress
     }
 }

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>
+        home
+    </title>
+    <link type="text/css" href="~/Content/Style.css" rel="stylesheet">
+    <link href="~/Content/datepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+    <div id="banner_div">
+        <img alt="leaveday banner" src="~/Content/img/top_banner.jpg">
+    </div>
+    <div id="topbar_div">
+        <div>
+            <img src="~/Content/img/logo-leavedays-small.png" alt="" class="pull-left">
+            <div id="leftWelcome" class="pull-left">
+                System of registration
+                Here should be your name!
+            </div>
+            <div id="rightWelcome">
+                <div id="rightWelcomeText">
+
+                    <ul class="dropdown-menu">
+                        Wellcome
+                        <b>Your name and your role</b>
+                        @Html.ActionLink("Log Out", "LogOff", "Account")
+                    </ul>
+
+                </div>
+                <div id="rightWelcomeHelpImg">
+                    <img src="~/Content/img/helpicon_gray.gif" alt="Help" style="cursor: pointer;" onclick="window.open('http://support.leavedays.com&#39;, &#39;CustomPopUp&#39;, &#39;width=800, height=600, scrollbars=1, menubar=no, resizable=yes')">
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    <div id="menu-div" style="display: block;">
+            <div id="masterDiv" class="menu-open" style="">
+    <span class="submenu" style="display: block;">
+	    <a href="https://ted.vrijedagen.nl/Home/Index">домашняя страница</a>
+        <a href="https://ted.vrijedagen.nl/Request.aspx/Create">запрос</a>
+        <a href="https://ted.vrijedagen.nl/Aanvraag.aspx/Summary">обзор запросов</a>
+        <a href="https://ted.vrijedagen.nl/LeaveCalendar.aspx">обзор календаря</a>
+        <a href="https://ted.vrijedagen.nl/KalenderOverzicht.aspx/KeurenIndex">к рассмотрению</a>
+        <a href="https://ted.vrijedagen.nl/Medewerker.aspx">сотрудники</a>
+        @Html.ActionLink("Request", "Create", "Request")
+        @Html.ActionLink("for consideration", "ConfirmNew", "Request");
+        @Html.ActionLink("confirmed request", "ShowConfirmed", "Request")
+        </span>
+       </div>
+ </div>
+        <div id="content-div" style="display: block;">
+            <div id="error-div" class="ui-state-error padded c-hide">
+            </div>
+            <div id="departmentCapacity"></div>
+            <div>
+                @RenderBody()
+            </div>
+            <br>
+            <br>
+        </div>
+        <br>
+    </div>
+    <br>
+    <div id="footer_div">
+        <span id="leftFooter"> Number of licenses </span>
+        <span id="rightFooter">Some numbers</span>
+    </div>
+    @*<script type="text/javascript" src="~/Scripts/asset(1).js"></script>
+    <script src="~/Scripts/analytics.js"></script>
+    <script src="~/Scripts/nr-1026.min.js"></script>*@
+</body>
+</html>

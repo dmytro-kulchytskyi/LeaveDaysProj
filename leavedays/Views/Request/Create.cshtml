@@ -12,7 +12,7 @@
         @Html.AntiForgeryToken();
 
         @Html.HiddenFor(model => model.UserId);
-
+        <input type="hidden" name="returnUrl" value="@Request.Url" />
         @Html.HiddenFor(model => model.CompanyId);
         @Html.ValidationSummary(true, "")
         <table>

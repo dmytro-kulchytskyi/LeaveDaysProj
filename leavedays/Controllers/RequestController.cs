@@ -60,15 +60,17 @@ namespace leavedays.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConfirmNew(int Id, string acceptBtn)
+        public ActionResult ConfirmNew(int Id, string acceptBtn, string returnUrl = "")
         {
             if (acceptBtn == "Accept")
             {
                 requestService.Accept(Id);
-                return RedirectToAction("ConfirmNew");
+                if (string.IsNullOrEmpty(returnUrl)) return View("Index", "Home");
+                return Redirect(returnUrl);
             }
             requestService.Reject(Id);
-            return RedirectToAction("ConfirmNew");
+            if (string.IsNullOrEmpty(returnUrl)) return View("Index", "Home");
+            return Redirect(returnUrl);
         }
 
         [HttpGet]

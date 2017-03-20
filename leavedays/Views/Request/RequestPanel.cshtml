@@ -88,6 +88,7 @@
                 {
                     <td>@request.UserName</td>
                     <td>
+                        <input type="hidden" name="returnUrl" value="@Request.Url" />
                         <input type="hidden" value="@request.Id" name="Id">
                         @request.VacationInterval
                     </td>

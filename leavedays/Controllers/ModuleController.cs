@@ -11,12 +11,12 @@ using System.Web.Mvc;
 
 namespace leavedays.Controllers
 {
-    public class RequestController : Controller
+    public class ModuleController : Controller
     {
         readonly RequestService requestService;
         private readonly UserManager<AppUser, int> userManager;
 
-        public RequestController(RequestService requestService, UserManager<AppUser, int> userManager)
+        public ModuleController(RequestService requestService, UserManager<AppUser, int> userManager)
         {
             this.requestService = requestService;
             this.userManager = userManager;
@@ -93,6 +93,19 @@ namespace leavedays.Controllers
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (currentUser == null) return RedirectToAction("Index", "Home");
             return View("UsersRequest", requestService.GetSendedByUserId(currentUser.Id));
+        }
+
+        public ActionResult eOverview()
+        {
+            return View();
+        }
+        public ActionResult cOverview()
+        {
+            return View();
+        }
+        public ActionResult Pending()
+        {
+            return View();
         }
     }
 }

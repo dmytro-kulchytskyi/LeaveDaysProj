@@ -204,7 +204,7 @@
     <Compile Include="App_Start\Startup.auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RequestController.cs" />
+    <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -250,8 +250,11 @@
     <Content Include="Views\Account\CreateEmployee.cshtml" />
     <Content Include="Views\Account\CreateCompany.cshtml" />
     <Content Include="Views\Request\ConfirmedRequest.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Request\UsersRequest.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Module\eOverview.cshtml" />
+    <Content Include="Views\Module\cOverview.cshtml" />
+    <Content Include="Views\Module\Pending.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

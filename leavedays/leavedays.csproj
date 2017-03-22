@@ -242,7 +242,6 @@
     </Content>
     <EmbeddedResource Include="Models\Nhibernate\Module.hbm.xml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Request\Create.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Request\RequestPanel.cshtml" />
@@ -251,6 +250,8 @@
     <Content Include="Views\Account\CreateEmployee.cshtml" />
     <Content Include="Views\Account\CreateCompany.cshtml" />
     <Content Include="Views\Request\ConfirmedRequest.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Request\UsersRequest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

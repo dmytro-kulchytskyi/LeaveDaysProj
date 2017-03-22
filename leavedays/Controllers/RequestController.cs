@@ -31,6 +31,7 @@ namespace leavedays.Controllers
         public async Task<ActionResult> Create()
         {
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
+            if (currentUser == null) return RedirectToAction("Index", "Home");
             EditRequest request = new EditRequest()
             {
                 Status = "New",
@@ -52,6 +53,7 @@ namespace leavedays.Controllers
         public async Task<ActionResult> ConfirmNew()
         {
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
+            if (currentUser == null) return RedirectToAction("Index", "Home");
             if (await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
                 return View("RequestPanel", requestService.GetInProgressRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
@@ -77,11 +79,20 @@ namespace leavedays.Controllers
         public async Task<ActionResult> ShowConfirmed()
         {
             var currentUser =await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
-            if(await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
+            if (currentUser == null) return RedirectToAction("Index", "Home");
+            if (await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
                 return View("ConfirmedRequest", requestService.GetConfirmedRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
             }
             return View("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ShowSended()
+        {
+            var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
+            if (currentUser == null) return RedirectToAction("Index", "Home");
+            return View("UsersRequest", requestService.GetSendedByUserId(currentUser.Id));
         }
     }
 }

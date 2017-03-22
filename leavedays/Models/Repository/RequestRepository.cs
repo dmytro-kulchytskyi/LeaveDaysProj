@@ -41,6 +41,26 @@ namespace leavedays.Models.Repository
             }
         }
 
+        public IEnumerable<ViewRequest> GetByUserIdForView(int userId)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                var criteria = session.CreateCriteria<Request>();
+                criteria.CreateAlias("User", "user");
+                criteria.Add(Restrictions.Eq("user.Id", userId))
+                    .SetProjection(Projections.ProjectionList()
+                    .Add(Projections.Id(), "Id")
+                    .Add(Projections.Property("VacationDates"), "VacationInterval")
+                    .Add(Projections.Property("RequestBase"), "RequestBase")
+                    .Add(Projections.Property("SigningDate"), "SigningDate")
+                    .Add(Projections.Property("IsAccepted"), "IsAccepted")
+                    .Add(Projections.Property("user.UserName"), "UserName"));
+                var result = criteria.SetResultTransformer(Transformers.AliasToBean<ViewRequest>())
+                    .List<ViewRequest>();
+                return result;
+            }
+        }
+
         public Request GetById(int id)
         {
             using (var session = sessionFactory.OpenSession())

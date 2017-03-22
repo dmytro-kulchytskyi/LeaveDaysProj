@@ -46,6 +46,11 @@ namespace leavedays.Services
             return requestRepository.GetByRequestStatus(id, RequestStatus.Accepted, RequestStatus.NotAccepted);
         }
 
+        public IEnumerable<ViewRequest> GetSendedByUserId(int id)
+        {
+            return requestRepository.GetByUserIdForView(id);
+        }
+
         public void Accept(int id)
         {
             Request request = requestRepository.GetById(id);

@@ -302,3 +302,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/leavedays/Views/Shared/_Layout.cshtml
+/leavedays/Views/Request/UsersRequest.cshtml

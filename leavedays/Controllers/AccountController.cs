@@ -66,7 +66,8 @@ namespace leavedays.Controllers
         public async Task<ActionResult> CreateCustomer()
         {
 
-            var user = new AppUser() { UserName = "dimas", Password = "dimas123" };
+            var user = new AppUser() { UserName = "vadosik", Password = "dimas123" };
+            user.Roles = "Customer,FinanceAdmin";
             var result = await userManager.CreateAsync(user, "dimas123");
             if (result.Succeeded)
             {

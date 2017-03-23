@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>RequestPanel</title>
+    <title>Confirmed Request</title>
     <style>
         .table_price {
             border-collapse: collapse;
@@ -51,8 +51,8 @@
             .table_price .sel {
                 display: inline-block;
                 padding: 5px 10px;
-                background: #b7db87;
-                box-shadow: 2px 2px 0 0 darkgray;
+                background: #F79361;
+                box-shadow: 2px 2px 0 0 #a22800;
                 position: relative;
                 border: none;
             }
@@ -72,46 +72,34 @@
 </head>
 <body>
     <table class="table_price">
-        <caption>Requests</caption>
+        <caption>@Model.Select(m=>m.UserName).First() Requests</caption>
         <tr class="head">
-            <th>User</th>
             <th>Vacation duration</th>
             <th>Sent date</th>
             <th>Base</th>
             <th>Status</th>
-            <th>Action</th>
         </tr>
         @foreach (ViewRequest request in Model)
         {
             <tr>
-                @using (Html.BeginForm("ConfirmNew", "Request", FormMethod.Post))
+                <td>
+                    <input type="hidden" name="returnUrl" value="@Request.Url" />
+                    <input type="hidden" value="@request.Id" name="Id">
+                    @request.VacationInterval
+                </td>
+                <td>@request.SigningDate</td>
+                <td>@request.RequestBase</td>
+                @if (@request.IsAccepted == leavedays.Models.RequestStatus.Accepted)
                 {
-                    <td>@request.UserName</td>
-                    <td>
-                        <input type="hidden" name="returnUrl" value="@Request.Url" />
-                        <input type="hidden" value="@request.Id" name="Id">
-                        @request.VacationInterval
-                    </td>
-                    <td>@request.SigningDate</td>
-                    <td>@request.RequestBase</td>
-                    if (@request.IsAccepted == leavedays.Models.RequestStatus.Accepted)
-                    {
-                        <td>Accepted</td>
-                        <td><input class="sel" type="submit" name="rejectBtn" value="Reject" /></td>
-                    }
-                    else if (@request.IsAccepted == leavedays.Models.RequestStatus.NotAccepted)
-                    {
-                        <td>NotAccepted</td>
-                        <td><input class="sel" type="submit" name="acceptBtn" value="Accept" /></td>
-                    }
-                    else
-                    {
-                        <td>InProgress</td>
-                        <td>
-                            <input class="sel" type="submit" name="acceptBtn" value="Accept" />
-                            <input class="sel" type="submit" name="rejectBtn" value="Reject" />
-                        </td>
-                    }
+                <td>Accepted</td>
+                }
+                else if (@request.IsAccepted == leavedays.Models.RequestStatus.NotAccepted)
+                {
+                <td>NotAccepted</td>
+                }
+                else
+                {
+                <td>Under Consideration</td>
                 }
             </tr>
         }

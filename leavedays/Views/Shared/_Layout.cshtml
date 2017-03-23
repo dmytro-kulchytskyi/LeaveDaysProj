@@ -73,7 +73,6 @@
                         @Html.ActionLink("for consideration", "Confirm", "Request")
                         @if (User.Identity.IsAuthenticated)
                         {
-                            @if(User.IsInRole())
                                 @Html.ActionLink("Create Company", "CreateCompany", "Account")
                                 @Html.ActionLink("Create Emplyee", "CreateEmployee", "Account")
                         }

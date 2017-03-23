@@ -192,6 +192,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\analytics.js" />
     <Content Include="Scripts\asset%281%29.js" />
+    <None Include="Properties\PublishProfiles\leavedays - Web Deploy.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
@@ -230,6 +231,7 @@
     <Compile Include="Models\ViewModels\Account\CreateCompanyViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\CreateEmployeeViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModel\ViewRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CompanyService.cs" />

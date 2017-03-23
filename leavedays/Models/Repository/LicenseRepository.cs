@@ -1,5 +1,6 @@
 ﻿using leavedays.Models.Repository.Interfaces;
 using NHibernate;
+using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +36,27 @@ namespace leavedays.Models.Repository
 
         public License GetByName(string name)
         {
-            throw new NotImplementedException();
+            using (var session = sessionFactory.OpenSession())
+            {
+                var result = session.CreateCriteria<License>()
+                    .Add(Restrictions.Eq("Name", name))
+                    .UniqueResult<License>();
+                return result;
+            }
         }
 
         public int Save(License license)
         {
-            throw new NotImplementedException();
+            using (var session = sessionFactory.OpenSession())
+            {
+                using (var t = session.BeginTransaction())
+                {
+                    session.Save(license);
+                    t.Commit();
+                    return license.Id;
+                }
+
+            }
         }
     }
 }

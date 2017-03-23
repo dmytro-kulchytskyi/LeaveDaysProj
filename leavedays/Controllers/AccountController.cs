@@ -30,6 +30,7 @@ namespace leavedays.Controllers
         private readonly IUserRepository userRepository;
         private readonly ILicenseRepository licenseRepository;
 
+
         public AccountController(
             UserManager<AppUser, int> userManager,
             SignInManager<AppUser, int> signInManager,
@@ -74,9 +75,21 @@ namespace leavedays.Controllers
                 await signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return Content(result.Succeeded.ToString());
-
-
         }
+
+        public string CreateLicense(int n = 1)
+        {
+            var license = new License();
+            license.Name = "l" + n;
+            license.Modules = new HashSet<Module>()
+            {
+                new Module() {Id = 1, Name = "1" },
+                 new Module() {Id = 2, Name = "2" }
+            };
+          
+            return "ok " + licenseRepository.Save(license);
+        }
+
 
         [Authorize]
         public ActionResult AddTo(string role)
@@ -135,14 +148,15 @@ namespace leavedays.Controllers
             var licenseList = licenseRepository.GetAll();
             var model = new RegisterViewModel();
             model.licenseList = licenseList;
-            return View(licenseList);
+            model.Roles = CreateUserAllowedRoles;
+            return View(model);
         }
 
         [HttpPost]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
 
-            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "FinanceAdmin")) return HttpNotFound();
+         
             model.Roles = model.Roles = CreateUserAllowedRoles;
             if (!ModelState.IsValid) return View(model);
 
@@ -190,6 +204,7 @@ namespace leavedays.Controllers
                 ModelState.AddModelError("", "Error while creating new customer");
                 return View(model);
             }
+            await signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             return RedirectToAction("Index", "Home");
         }
 

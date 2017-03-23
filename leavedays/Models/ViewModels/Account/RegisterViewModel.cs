@@ -6,11 +6,17 @@ using System.Web;
 
 namespace leavedays.Models.ViewModels.Account
 {
-    public class CreateCompanyViewModel
+    public class RegisterViewModel
     {
+        [Required(ErrorMessage = "You must select a license")]
+        public string LicenseName { get; set; }
+
+        public string RolesLine { get; set; }
+
+
         [Required]
         [StringLength(250)]
-        public string CompanyName {get; set;}
+        public string CompanyName { get; set; }
 
         [Required]
         [StringLength(250)]
@@ -40,6 +46,9 @@ namespace leavedays.Models.ViewModels.Account
         [ScaffoldColumn(false)]
         public string[] Roles { get; set; }
 
-        public string RolesLine { get; set; }
+        [ScaffoldColumn(false)]
+        public IList<License> licenseList { get; set; }
+
+       
     }
 }

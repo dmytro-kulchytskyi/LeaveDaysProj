@@ -1,4 +1,4 @@
-﻿@model leavedays.Models.ViewModels.Account.CreateCompanyViewModel
+﻿@model leavedays.Models.ViewModels.Account.RegisterViewModel
 @{
     ViewBag.Title = "Create Employee";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,21 +9,42 @@
 
 
 <div class="fieldBlock">
-    @using (Html.BeginForm("CreateCompany", "Account", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "form" }))
     {
-        <h2>Create Company</h2>
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "")
-        <div>
-            @Html.LabelFor(model => model.CompanyName)
-            @Html.EditorFor(model => model.CompanyName)
-            @Html.ValidationMessageFor(model => model.CompanyName)
+        <h1>Register</h1>
+        <div id="licenses">
+            @foreach (var license in Model.licenseList)
+            {
+                <div class="license" licensename="@license.Name">
+                    <div class="licenseName">
+                        @license.Name
+                    </div>
+                    @foreach (var module in license.Modules)
+                    {
+                        <div>
+                            @module.Name
+                        </div>
+                    }
+                    <div class="licensePrice">
+                        @license.Price
+                    </div>
+                </div>
+            }
         </div>
-        <div>
-            @Html.LabelFor(model => model.CompanyUrl)
-            @Html.EditorFor(model => model.CompanyUrl)
-            @Html.ValidationMessageFor(model => model.CompanyUrl)
-        </div>
+        <br />
+            <h2>Create Company</h2>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "")
+            <div>
+                @Html.LabelFor(model => model.CompanyName)
+                @Html.EditorFor(model => model.CompanyName)
+                @Html.ValidationMessageFor(model => model.CompanyName)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.CompanyUrl)
+                @Html.EditorFor(model => model.CompanyUrl)
+                @Html.ValidationMessageFor(model => model.CompanyUrl)
+            </div>
             <h5>Company Customer Info</h5>
             <div>
                 @Html.LabelFor(model => model.UserName)
@@ -49,7 +70,7 @@
                 @Html.ValidationMessageFor(model => model.LastName)
             </div>
             <br />
-            
+
             <div id="checkboxes">
                 <input type="checkbox" name="customer" value="customer" checked="checked" disabled="disabled" />
                 <span>Customer</span>
@@ -61,20 +82,18 @@
                 }
             </div>
             @Html.HiddenFor(model => model.RolesLine, new { @id = "RolesLine" })
+            @Html.HiddenFor(model => model.LicenseName, new { @id = "LicenseName" })
             <input type="submit" value="Create" id="submit" />
     }
 </div>
 <script>
-    var roles = "";
     $(document).ready(function () {
-        var rolesLine = $('#RolesLine');
-        $($('#checkboxes')).on('click', function () {
-            roles = '';
-            $.each($('.checkbox:checked'), function (index, value) {
-                roles += $(value).val() + ',';
-            });
-            $(rolesLine).val(roles);
-            // alert(roles);
+        var licenseName = $('#LicenseName');
+        var licenses = $(licenses);
+        $(licenses).on('click', ".license", function () {
+            $(licenseName).val($(this).attr("licensename"));
+            $(licenses).find(".license.selected").removeClass("selected");
+            $(this).addClass("selected");
         });
 
     });

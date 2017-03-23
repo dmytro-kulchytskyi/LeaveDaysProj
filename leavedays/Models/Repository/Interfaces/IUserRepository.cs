@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace leavedays.Models.Repository.Interfaces
         int Save(AppUser user);
         AppUser GetById(int id);
         AppUser GetByUserName(string userName);
-        IList<AppUser> GetAll();   
+        IList<AppUser> GetAll();
+        IList<AppUser> GetByCompanyId(int companyId);
     }
 }

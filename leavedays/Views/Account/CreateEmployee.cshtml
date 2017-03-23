@@ -11,7 +11,6 @@
 <div class="fieldBlock">
     @using (Html.BeginForm("CreateEmployee", "Account", FormMethod.Post, new { id = "form" }))
     {
-        <input type="text" name="companyId"/>
         <h2>Create Employee</h2>
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "")

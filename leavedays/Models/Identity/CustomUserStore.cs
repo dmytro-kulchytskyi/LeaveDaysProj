@@ -20,9 +20,9 @@ namespace leavedays.Models.Identity
 
         public Task AddToRoleAsync(AppUser user, string roleName)
         {
-            if (string.IsNullOrWhiteSpace(user.Roles)) user.Roles = ",";
-            user.Roles += roleName+",";
-
+            roleName = roleName.ToLower();
+            if (string.IsNullOrWhiteSpace(user.Roles)) user.Roles = "";
+            user.Roles += "[" + roleName + "]";
             return Task.FromResult(true);
         }
 
@@ -73,7 +73,8 @@ namespace leavedays.Models.Identity
 
         public Task<IList<string>> GetRolesAsync(AppUser user)
         {
-            return Task.FromResult(user.Roles.Trim(',').Split(',').ToList() as IList<string>);
+            if (string.IsNullOrWhiteSpace(user.Roles)) return Task.FromResult(new List<string>() as IList<string>);
+            return Task.FromResult(user.Roles.TrimEnd(']').Split(']').Select(role => role.TrimStart('[').ToLower()).ToList() as IList<string>);
         }
 
         public Task<bool> GetTwoFactorEnabledAsync(AppUser user)
@@ -94,8 +95,9 @@ namespace leavedays.Models.Identity
 
         public Task<bool> IsInRoleAsync(AppUser user, string roleName)
         {
-            if (string.IsNullOrWhiteSpace(roleName)) return Task.FromResult(false);
-            return Task.FromResult(user.Roles.Contains(roleName));
+            if (string.IsNullOrWhiteSpace(roleName) || string.IsNullOrWhiteSpace(user.Roles)) return Task.FromResult(false);
+            roleName = roleName.ToLower();
+            return Task.FromResult(user.Roles.Contains("[" + roleName + "]"));
         }
 
         public Task RemoveFromRoleAsync(AppUser user, string roleName)

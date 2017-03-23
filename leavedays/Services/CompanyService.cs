@@ -3,6 +3,7 @@ using leavedays.Models.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace leavedays.Services
@@ -19,18 +20,24 @@ namespace leavedays.Services
         private readonly IRoleRepository roleRepository;
         private readonly IUserRepository userRepository;
 
-        public string GetRolesFromLine(string line)
+        public string[] GetRolesFromLine(string line)
         {
             if (string.IsNullOrWhiteSpace(line))
-                return "";
-            line = line.TrimEnd(',');
+                return new string[0];
+            line = line.Trim(',');
             var roles = line.Split(',');
             if (roles.Length == 0)
-                return "";
-            else
+                return new string[0];
+            else return roles;
+        }
+        public string GetRolesLine(IEnumerable<string> roles)
+        {
+            StringBuilder rolesLine = new StringBuilder();
+            foreach (var role in roles)
             {
-                return "," + string.Join(",", roles) + ",";
+                rolesLine.Append("[" + role + "]");
             }
+            return rolesLine.ToString();
         }
 
         public AppUser GetUserByName(string name)

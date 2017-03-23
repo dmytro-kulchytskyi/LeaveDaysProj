@@ -70,6 +70,5 @@ namespace leavedays.Controllers
             requestService.Reject(Id);
             return RedirectToAction("Confirm");
         }
-
     }
 }

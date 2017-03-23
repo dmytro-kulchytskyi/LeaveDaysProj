@@ -24,6 +24,16 @@ namespace leavedays.Models.Repository
             throw new NotImplementedException();
         }
 
+        public IList<AppUser> GetByCompanyId(int companyId)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                var userList = session.CreateCriteria<AppUser>()
+                    .Add(Restrictions.Eq("CompanyId", companyId)).List<AppUser>();
+                return userList;
+            }
+        }
+
         public AppUser GetById(int id)
         {
             using (var sesson = sessionFactory.OpenSession())

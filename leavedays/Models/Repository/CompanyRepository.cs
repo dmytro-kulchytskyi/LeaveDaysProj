@@ -31,11 +31,11 @@ namespace leavedays.Models.Repository
             }
         }
 
-        public Company GetByName(string urlName)
+        public Company GetByUrlName(string urlName)
         {
             using (var session = sessionFactory.OpenSession())
             {
-                return session.CreateCriteria<Company>().Add(Restrictions.Eq("UrlName", urlName)).UniqueResult<Company>();
+                return session.CreateCriteria<Company>().Add(Restrictions.Eq("UrlName", urlName.ToLower())).UniqueResult<Company>();
             }
         }
 

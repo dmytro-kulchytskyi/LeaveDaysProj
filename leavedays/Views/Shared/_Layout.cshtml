@@ -24,9 +24,16 @@
                 <div id="rightWelcomeText">
 
                     <ul class="dropdown-menu">
-                        Wellcome
-                        <b>Your name and your role</b>
-                        @Html.ActionLink("Log Out", "LogOff", "Account")
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <text>Wellcome</text>
+                            @User.Identity.Name
+                            @Html.ActionLink("Log Out", "LogOff", "Account")
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Log In", "Login", "Account")
+                        }
                     </ul>
 
                 </div>
@@ -63,7 +70,14 @@
                         <label class="pull-left">Requests for consideration</label>
                     </div>
                     <span class="submenu" style="display: inline;">
-                        @Html.ActionLink("for consideration", "Confirm", "Request");
+                        @Html.ActionLink("for consideration", "Confirm", "Request")
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if(User.IsInRole())
+                                @Html.ActionLink("Create Company", "CreateCompany", "Account")
+                                @Html.ActionLink("Create Emplyee", "CreateEmployee", "Account")
+                        }
+                        @RenderSection("modules", false)
                         <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/Approval">продажа отпуска, подлежащая утверждению</a>
                         <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/ApprovedRequests">утвержденные запросы</a>
                     </span>
@@ -151,7 +165,7 @@
         <span id="rightFooter">Some numbers</span>
     </div>
     @*<script type="text/javascript" src="~/Scripts/asset(1).js"></script>
-    <script src="~/Scripts/analytics.js"></script>
-    <script src="~/Scripts/nr-1026.min.js"></script>*@
+        <script src="~/Scripts/analytics.js"></script>
+        <script src="~/Scripts/nr-1026.min.js"></script>*@
 </body>
 </html>

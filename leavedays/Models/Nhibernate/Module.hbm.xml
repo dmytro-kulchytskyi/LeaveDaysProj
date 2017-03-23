@@ -5,7 +5,9 @@
     <id name="Id" column="ModuleId" type="int">
       <generator class="native" />
     </id>
+
     <property name="Name" />
+    <property name="Price" />
   </class>
 
 </hibernate-mapping>

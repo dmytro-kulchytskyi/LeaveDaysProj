@@ -36,7 +36,7 @@ namespace leavedays.Controllers
             {
                 Status = "New",
                 UserId = currentUser.Id,
-                CompanyId = currentUser.CompanyId
+                CompanyId = currentUser.CompanyId,
             };
             return View(request);
         }
@@ -54,7 +54,7 @@ namespace leavedays.Controllers
         {
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (currentUser == null) return RedirectToAction("Index", "Home");
-            if (await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
+            if (await userManager.IsInRoleAsync(currentUser.Id, "Customer") || await userManager.IsInRoleAsync(currentUser.Id, "FinaceAdmin"))
             {
                 return View("RequestPanel", requestService.GetInProgressRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
             }
@@ -63,7 +63,7 @@ namespace leavedays.Controllers
 
         [HttpPost]
         public ActionResult ConfirmNew(int Id, string acceptBtn, string returnUrl = "")
-        {
+        { 
             if (acceptBtn == "Accept")
             {
                 requestService.Accept(Id);
@@ -80,7 +80,7 @@ namespace leavedays.Controllers
         {
             var currentUser =await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (currentUser == null) return RedirectToAction("Index", "Home");
-            if (await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
+            if (await userManager.IsInRoleAsync(currentUser.Id, "Customer") || await userManager.IsInRoleAsync(currentUser.Id, "FinaceAdmin"))
             {
                 return View("ConfirmedRequest", requestService.GetConfirmedRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
             }
@@ -95,7 +95,7 @@ namespace leavedays.Controllers
             return View("UsersRequest", requestService.GetSendedByUserId(currentUser.Id));
         }
 
-        public ActionResult eOverview()
+        public ActionResult eOwerview()
         {
             return View();
         }

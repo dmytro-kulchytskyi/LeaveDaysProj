@@ -13,11 +13,11 @@ namespace leavedays
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "CompanyName",
-                url: "{controller}/{action}/{companyName}",
-                defaults: new { controller = "Home", action = "Index", companyName = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "CompanyName",
+            //    url: "{controller}/{action}/{companyName}",
+            //    defaults: new { controller = "Home", action = "Index", companyName = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
                 name: "Default",

@@ -22,8 +22,6 @@
             </div>
             <div id="rightWelcome">
                 <div id="rightWelcomeText">
-
-                    <ul class="dropdown-menu">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <text>Wellcome</text>
@@ -32,11 +30,9 @@
                         }
                         else
                         {
-                            @Html.ActionLink("Log In", "Login", "Account")
-                            @Html.ActionLink("Register", "Register", "Account")
+                            <span style="margin-right: 5px;">@Html.ActionLink("Log In", "Login", "Account")</span>
+                            <span>@Html.ActionLink("Register", "Register", "Account")</span>
                         }
-                    </ul>
-
                 </div>
                 <div id="rightWelcomeHelpImg">
                     <img src="~/Content/img/helpicon_gray.gif" alt="Help" style="cursor: pointer;" onclick="window.open('http://support.leavedays.com&#39;, &#39;CustomPopUp&#39;, &#39;width=800, height=600, scrollbars=1, menubar=no, resizable=yes')">
@@ -49,7 +45,7 @@
         <div id="menu-div" style="display: block;">
 
             <div id="masterDiv" class="menu-open" style="">
-                <a id="homemenu" class="homemenu active-menu-item" href="https://ted.vrijedagen.nl/Home/Index" style="display: block;">
+                <a id="homemenu" class="homemenu active-menu-item" href="@Url.Action("Index", "Home")" style="display: block;">
                     <i class="menu-icon menu-icon-home pull-left"></i>
                     <span class="pull-left">домашняя страница</span>
                 </a>
@@ -57,92 +53,35 @@
                     <div class="menutitle">
                         <i class="menu-icon menu-icon-leave pull-left"></i>
                         <label class="pull-left">отпуск</label>
-                    </div><span class="submenu" style="display: inline;">
-                        @Html.ActionLink("Request", "Create", "Request")
-                        <a href="https://ted.vrijedagen.nl/Aanvraag.aspx/CreateCollectief">коллективный запрос</a>
-                        <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/RequestLeaveSale">продажа</a>
-                        <a href="https://ted.vrijedagen.nl/Saldo.aspx/MedewerkerSaldoList">сальдо</a>
-                        <a href="https://ted.vrijedagen.nl/Aanvraag.aspx">открытые запросы</a>
-                        <a href="https://ted.vrijedagen.nl/Aanvraag.aspx/Summary">обзор запросов</a>
-                        <a href="https://ted.vrijedagen.nl/LeaveCalendar.aspx">обзор календаря</a>
-                    </span>
-                    <div class="menutitle">
-                        <i class="menu-icon menu-icon-requests pull-left"></i>
-                        <label class="pull-left">Requests for consideration</label>
                     </div>
-                    <span class="submenu" style="display: inline;">
-                        @Html.ActionLink("for consideration", "Confirm", "Request")
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                                @Html.ActionLink("Create Company", "CreateCompany", "Account")
-                                @Html.ActionLink("Create Emplyee", "CreateEmployee", "Account")
-                        }
-                        @RenderSection("modules", false)
-                        <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/Approval">продажа отпуска, подлежащая утверждению</a>
-                        <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/ApprovedRequests">утвержденные запросы</a>
-                    </span>
-                    <div class="menutitle">
-                        <i class="menu-icon menu-icon-report pull-left"></i>
-                        <label class="pull-left">Регистрация болезни</label>
-                    </div><span class="submenu" style="display: inline;">
-                        <a href="https://ted.vrijedagen.nl/SickReports/Sick/Create">новое заявка о болезни</a>
-                        <a href="https://ted.vrijedagen.nl/SickReports/Sick">обзор</a>
-                        <a href="https://ted.vrijedagen.nl/SickReports/Sick/IndexHistory">архив</a>
-                    </span>
-                    <div class="menutitle">
-                        <i class="menu-icon menu-icon-administration pull-left"></i>
-                        <label class="pull-left">администрирование</label>
-                    </div>
-                    <span class="submenu" style="display: inline;">
-                        <a href="https://ted.vrijedagen.nl/Medewerker.aspx">сотрудники</a>
-                        <a href="https://ted.vrijedagen.nl/Saldo.aspx/SaldoMatrix">обзор сальдо сотрудника</a>
-                        <a href="https://ted.vrijedagen.nl/CollectiveRequest.aspx/Index1">коллективные запросы</a>
-                        <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/RequestLeaveSaleForSomeoneElse">продажа отпуска от имени иного лица</a>
-                        <a href="https://ted.vrijedagen.nl/LeaveSale.aspx/Processing">к выплате</a>
-                        <a href="https://ted.vrijedagen.nl/Jaar.aspx">учет года в отчетности</a>
-                        <a href="https://ted.vrijedagen.nl/CollectiveContractChange.aspx/List">collective contract change</a>
-                    </span><div class="menutitle">
-                        <i class="menu-icon menu-icon-import pull-left"></i>
-                        <label class="pull-left">импортировать</label>
-                    </div>
-                    <span class="submenu" style="display: inline">
-                        <a href="https://ted.vrijedagen.nl/BalanceMutationImport.aspx">импортировать остаток модификаций</a>
-                        <a href="https://ted.vrijedagen.nl/Import.aspx">импорт на выбор</a>
-                    </span>
-                    <div class="menutitle">
-                        <i class="menu-icon menu-icon-masterdata pull-left"></i>
-                        <label class="pull-left">базовые данные</label>
-                    </div>
-                    <span class="submenu" style="display: inline">
-                        <a href="https://ted.vrijedagen.nl/Verloftype.aspx">виды отпуска</a>
-                        <a href="https://ted.vrijedagen.nl/AuthorizationPath.aspx">Пути авторизации</a>
-                        <a href="https://ted.vrijedagen.nl/Dienstverband.aspx">трудовые договоры</a>
-                        <a href="https://ted.vrijedagen.nl/Rooster.aspx">графики</a>
-                        <a href="https://ted.vrijedagen.nl/SpecialeDag.aspx">Особые дни</a>
-                        <a href="https://ted.vrijedagen.nl/Regio.aspx">регионы</a>
-                        <a href="https://ted.vrijedagen.nl/Afdeling.aspx">отделы</a>
-                        <a href="https://ted.vrijedagen.nl/CustomCalendar.aspx">Пользовательские просмотр календаря</a>
-                    </span><div class="menutitle">
-                        <i class="menu-icon menu-icon-systemsettings pull-left"></i><
-                        <label class="pull-left">настройки системы</label>
-                    </div><span class="submenu" style="display: inline">
-                        <a href="https://ted.vrijedagen.nl/License.aspx">сведения о лицензии</a>
-                        <a href="https://ted.vrijedagen.nl/Settings.aspx">опции</a>
-                    </span>
-                    <div class="menutitle">
-                        <i class="menu-icon menu-icon-report pull-left"></i>
-                        <label class="pull-left">отчет</label>
-                    </div><span class="submenu" style="display: inline">
-                        <a href="https://ted.vrijedagen.nl/LeaveBalanceReport.aspx">баланс отпусков</a>
-                        <a href="https://ted.vrijedagen.nl/RequestReport.aspx">обзор запросов</a>
-                        <a href="https://ted.vrijedagen.nl/SickReportsReport.aspx">sick reports report</a>
-                        <a href="https://ted.vrijedagen.nl/TakenLeaveReport.aspx">отчет о взятом отпуске</a>
-                        <a href="https://ted.vrijedagen.nl/EndOfServiceReport.aspx">отчет об увольнении сотрудника</a>
-                        <a href="https://ted.vrijedagen.nl/LeaveSaleRequestReport.aspx">отчет о запросах на продажу отпуска</a>
-                        <a href="https://ted.vrijedagen.nl/LeaveSaleMutationReport.aspx">отчет о модификациях продажи отпуска</a>
-                        <a href="https://ted.vrijedagen.nl/LeaveSummaryReport.aspx">оставить построить очередной доклад</a>
-                        <a href="https://ted.vrijedagen.nl/MutationReport.aspx">отчет об изменениях</a>
-                    </span>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        
+                        <span class="submenu" style="display: inline;">
+                            @Html.ActionLink("Request", "Create", "Module")
+                        </span>
+                        <div class="menutitle">
+                            <i class="menu-icon menu-icon-requests pull-left"></i>
+                            <label class="pull-left">Requests for consideration</label>
+                        </div>
+                        <span class="submenu" style="display: inline;">
+                            @Html.ActionLink("for consideration", "ConfirmNew", "Module")
+
+
+                            <p>@Html.ActionLink("Create Company", "CreateCompany", "Account") </p>
+                            <p> @Html.ActionLink("Create Emplyee", "CreateEmployee", "Account")</p>
+                        </span>
+                        @Html.ActionLink("Employee Owerview", "eOwerview", "Module")
+                        @Html.ActionLink("Calendar Owerview", "cOwerview", "Module")
+                        @Html.ActionLink("Pending requests", "Pending", "Module")
+                        @Html.ActionLink("Request", "Create", "Module")
+                        @Html.ActionLink("for consideration", "ConfirmNew", "Module")
+                        @Html.ActionLink("confirmed request", "ShowConfirmed", "Module")
+                        @Html.ActionLink("my request", "ShowSended", "Module")
+                    }
+                    @RenderSection("modules", false)
+
+
                 </span>
             </div>
 

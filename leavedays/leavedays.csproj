@@ -177,9 +177,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\img\calendar.png" />
+    <Content Include="Content\img\focused-picture.png" />
     <Content Include="Content\img\helpicon_gray.gif" />
     <Content Include="Content\img\logo-leavedays-small.png" />
+    <Content Include="Content\img\Logo.png" />
+    <Content Include="Content\img\ok.png" />
+    <Content Include="Content\img\standart-picture.png" />
     <Content Include="Content\img\top_banner.jpg" />
+    <Content Include="Content\registerStyle.css" />
     <Content Include="Content\Style.css" />
     <Content Include="Content\datepicker.min.css" />
     <Content Include="Global.asax" />
@@ -220,10 +226,12 @@
     <Compile Include="Models\Repository\Interfaces\ILicenseRepository.cs" />
     <Compile Include="Models\Repository\Interfaces\IRequestRepository.cs" />
     <Compile Include="Models\Repository\Interfaces\IRoleRepository.cs" />
+    <Compile Include="Models\Repository\Interfaces\IModuleRepository.cs" />
     <Compile Include="Models\Repository\Interfaces\IUserRepository.cs" />
     <Compile Include="Models\Repository\LicenseRepository.cs" />
     <Compile Include="Models\Repository\RequestRepository.cs" />
     <Compile Include="Models\Repository\RoleRepository.cs" />
+    <Compile Include="Models\Repository\ModuleRepository.cs" />
     <Compile Include="Models\Repository\UserRepository.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\Role.cs" />
@@ -246,15 +254,15 @@
     </Content>
     <EmbeddedResource Include="Models\Nhibernate\Module.hbm.xml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Request\Create.cshtml" />
+    <Content Include="Views\Module\Create.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Request\RequestPanel.cshtml" />
+    <Content Include="Views\Module\RequestPanel.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Scripts\nr-1026.min.js" />
     <Content Include="Views\Account\CreateEmployee.cshtml" />
     <Content Include="Views\Account\CreateCompany.cshtml" />
-    <Content Include="Views\Request\ConfirmedRequest.cshtml" />
-    <Content Include="Views\Request\UsersRequest.cshtml" />
+    <Content Include="Views\Module\ConfirmedRequest.cshtml" />
+    <Content Include="Views\Module\UsersRequest.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Module\eOverview.cshtml" />
     <Content Include="Views\Module\cOverview.cshtml" />
@@ -273,6 +281,7 @@
     <Folder Include="Models\ViewModels\Home\" />
     <Folder Include="Models\ViewModels\Request\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="Views\Request\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

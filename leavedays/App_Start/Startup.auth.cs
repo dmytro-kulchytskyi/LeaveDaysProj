@@ -36,6 +36,7 @@ namespace leavedays
                
 
         //});
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,

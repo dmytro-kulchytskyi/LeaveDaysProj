@@ -13,6 +13,11 @@ namespace leavedays
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            
+        }
+        void Application_AuthenticateRequest(object sender, EventArgs e)
+        {
+
         }
     }
 }

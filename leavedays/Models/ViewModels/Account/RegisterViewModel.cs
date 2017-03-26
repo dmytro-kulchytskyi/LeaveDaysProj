@@ -11,7 +11,11 @@ namespace leavedays.Models.ViewModels.Account
         [Required(ErrorMessage = "You must select a license")]
         public string LicenseName { get; set; }
 
+        [ScaffoldColumn(false)]
         public string RolesLine { get; set; }
+
+        [ScaffoldColumn(false)]
+        public IList<Module> AllModules { get; set; }
 
 
         [Required]

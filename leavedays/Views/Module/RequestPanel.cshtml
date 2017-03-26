@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Confirmed Request</title>
+    <title>RequestPanel</title>
     <style>
         .table_price {
             border-collapse: collapse;
@@ -84,7 +84,7 @@
         @foreach (ViewRequest request in Model)
         {
             <tr>
-                @using (Html.BeginForm("ConfirmNew", "Request", FormMethod.Post))
+                @using (Html.BeginForm("ConfirmNew", "Module", FormMethod.Post))
                 {
                     <td>@request.UserName</td>
                     <td>

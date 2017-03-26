@@ -68,7 +68,7 @@ namespace leavedays.Controllers
         {
 
             var user = new AppUser() { UserName = "vadosik", Password = "dimas123" };
-            user.Roles = "Customer,FinanceAdmin";
+            user.Roles = "[Custome][FinanceAdmin]";
             var result = await userManager.CreateAsync(user, "dimas123");
             if (result.Succeeded)
             {
@@ -245,7 +245,7 @@ namespace leavedays.Controllers
             {
                 UserName = model.UserName,
                 Roles = companyService.GetRolesLine(rolesList),
-                CompanyId = User.Identity.GetUserId<int>()
+                CompanyId = userRepository.GetById(User.Identity.GetUserId<int>()).CompanyId
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)

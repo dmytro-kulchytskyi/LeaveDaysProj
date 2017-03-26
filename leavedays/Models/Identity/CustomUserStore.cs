@@ -96,8 +96,8 @@ namespace leavedays.Models.Identity
         public Task<bool> IsInRoleAsync(AppUser user, string roleName)
         {
             if (string.IsNullOrWhiteSpace(roleName) || string.IsNullOrWhiteSpace(user.Roles)) return Task.FromResult(false);
-            //roleName = roleName.ToLower();
-            return Task.FromResult(user.Roles.Contains("[" + roleName + "]"));
+            roleName = roleName.ToLower();
+            return Task.FromResult(user.Roles.ToLower().Contains("[" + roleName + "]"));
         }
 
         public Task RemoveFromRoleAsync(AppUser user, string roleName)

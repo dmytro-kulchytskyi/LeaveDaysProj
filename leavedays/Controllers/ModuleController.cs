@@ -55,7 +55,7 @@ namespace leavedays.Controllers
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (currentUser == null) return RedirectToAction("Index", "Home");
             string userRoles = currentUser.Roles;
-            if (userRoles.Contains("[Customer]") || userRoles.Contains("[FinanceAdmin]"))
+            if (userRoles.Contains("[customer]") || userRoles.Contains("[financeadmin]"))
             //if (await userManager.IsInRoleAsync(currentUser.Id, "Customer") || await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
                 return View("RequestPanel", requestService.GetInProgressRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
@@ -83,7 +83,7 @@ namespace leavedays.Controllers
             var currentUser =await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (currentUser == null) return RedirectToAction("Index", "Home");
             string userRoles = currentUser.Roles;
-            if (userRoles.Contains("[Customer]") || userRoles.Contains("[FinanceAdmin]"))
+            if (userRoles.Contains("[customer]") || userRoles.Contains("[financeadmin]"))
             //if (await userManager.IsInRoleAsync(currentUser.Id, "Customer") || await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
                 return View("ConfirmedRequest", requestService.GetConfirmedRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));

@@ -47,11 +47,10 @@ namespace leavedays.Models.ViewModels.Account
         [StringLength(250)]
         public string LastName { get; set; }
 
-        [ScaffoldColumn(false)]
-        public string[] Roles { get; set; }
+       
 
         [ScaffoldColumn(false)]
-        public IList<License> licenseList { get; set; }
+        public IList<License> LicenseList { get; set; }
 
        
     }

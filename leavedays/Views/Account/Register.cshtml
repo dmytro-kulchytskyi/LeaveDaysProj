@@ -96,7 +96,7 @@
 
 
 
-   *@
+*@
 
 
 
@@ -134,15 +134,20 @@
                 </nav>
             </header>
         </div>
-        <div class="content" id="page1">
-            <section class="signin">
-                <header><h2>Sign up today</h2></header>
-                <form action="">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+            <div class="content">
+                <section class="signin" id="page1">
+                    <header><h2>Sign up today</h2></header>
+
+                    <div class="input-border">
+                        @Html.TextBoxFor(model => model.UserName, new { placeholder = "UserName" })
+                    </div>
                     <div class="input-border fio">
                         @Html.TextBoxFor(model => model.FirstName, new { placeholder = "First name" })
                         @*<input type="text" placeholder="First name">*@
 
-                        @Html.TextBoxFor(model => model.FirstName, new { placeholder = "Last name" })
+                        @Html.TextBoxFor(model => model.LastName, new { placeholder = "Last name" })
                         @*<input type="text" placeholder="Last name">*@
                     </div>
                     @*<div class="input-border email">
@@ -150,26 +155,67 @@
                         </div>*@
                     <div class="input-border company">
                         @*<input type="text" placeholder="Company name">*@
-                        @Html.TextBoxFor(model => model.FirstName, new { placeholder = "Company name" })
+                        @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Company name" })
                     </div>
                     <div class="input-border adress">
-                        @Html.TextBoxFor(model => model.FirstName, new { placeholder = "Leavedays name", id = "leavedays-name", @class = "leavedays-adress" })
+                        @Html.TextBoxFor(model => model.CompanyUrl, new { placeholder = "Leavedays name", id = "leavedays-name", @class = "leavedays-adress" })
                         @*<input class="leavedays-adress" type="text" placeholder="Leavedays name" id="leavedays-name">*@
                     </div><label for="leavedays-name">.leavedays.com</label>
-                    @*<div class="input-border phone">
-                            <input type="text" placeholder="Phone no.">
-                        </div>*@
-
+                    <div class="input-border">
+                        @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })
+                    </div>
                     <input type="button" id="showPage2" value="SIGN UP">
                     <p>By signing up, you agree to our T & C privacy policy</p>
-                </form>
-            </section>
-            <div class="page-button">
-                <div id="button1" class="button active">1</div>
-                <div id="button2" class="button">2</div>
-                @*<a href="" class="button">3</a>*@
+
+                </section>
+                <section class="subscription hidden" id="page2">
+                    <header><h2>Select your subscription</h2></header>
+                    <p class="live">Leave registration</p>
+                    <p class="time">Time with leave registration</p>
+                    <div id="licenses" class="block-section">
+                        <div class="row">
+                            @foreach (var license in Model.LicenseList)
+                            {
+                                <div class="block licenseBlock" licensename="@license.Name">
+                                    <div class="license">@license.Name<span class="info">?</span></div>
+                                    <p>&euro;@license.Price per user / month</p>
+                                </div>
+                            }
+                            @*<div class="block">
+                                    <a href="">PROFESSIONAL<span class="info">?</span></a>
+                                    <p>&euro;1,75 per user / month</p>
+                                </div>
+                                <div class="block">
+                                    <a href="">PREMIUM<span class="info">?</span></a>
+                                    <p>On request</p>
+                                </div>*@
+                        </div>
+                        @*<div class="row">
+                                <div class="block blue">
+                                    <a href="">BASIC<span class="info">?</span></a>
+                                    <p>&euro;2,25 per user / month</p>
+                                </div>
+                                <div class="block blue">
+                                    <a href="">PROFESSIONAL<span class="info">?</span></a>
+                                    <p>&euro;2,75 per user / month</p>
+                                </div>
+                                <div class="block blue">
+                                    <a href="">PREMIUM<span class="info">?</span></a>
+                                    <p>On request</p>
+                                </div>
+                            </div>*@
+                    </div>
+                    @Html.HiddenFor(model => model.LicenseName, new { id = "LicenseName" })
+                    <input type="submit" value="SUBMIT">
+                </section>
+                @Html.ValidationSummary()
+                <div class="page-button">
+                    <div id="button1" class="button active">1</div>
+                    <div id="button2" class="button">2</div>
+                    @*<a href="" class="button">3</a>*@
+                </div>
             </div>
-        </div>
+        }
     </div>
     <script>
         var mass = document.querySelectorAll(".signin input");
@@ -267,7 +313,7 @@
 
             var licenseName = $('#LicenseName');
             var licenses = $("#licenses");
-            $(licenses).on('click', ".license", function () {
+            $(licenses).on('click', ".licenseBlock", function () {
                 $(licenseName).val($(this).attr("licensename"));
                 $(licenses).find(".license.selected").removeClass("selected");
                 $(this).addClass("selected");

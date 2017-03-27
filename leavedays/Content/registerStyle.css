@@ -8,8 +8,8 @@
 }
 
 .hidden {
-visibility: hidden;
-display: none;
+    visibility: hidden;
+    display: none;
 }
 
 .main .head {
@@ -367,11 +367,27 @@ nav ul li   input[type="submit"]:hover {
     color: white;
     box-shadow: 0px 3px 0px 0px #588916;
 }
+.content   input[type="submit"] {
+    margin: 20px 80px 0px 35%;
+    width: 275px;
+    height: 50px;
+    /* text-align: center; */
+    line-height: 50px;
+    border-radius: 5px;
+    background-color: #8cc63f;
+    font-family: Arial;
+    font-size: 21px;
+    color: white;
+    box-shadow: 0px 3px 0px 0px #588916;
+}
 
 .signin   input[type="button"]:hover {
     cursor: pointer;
 }
 
+.signin   input[type="submit"]:hover {
+    cursor: pointer;
+}
 .page-button{
     width:130px;
     margin: 20px auto;
@@ -449,7 +465,7 @@ nav ul li   input[type="submit"]:hover {
     justify-content: space-around;
 }
 
-.subscription .block-section .row a span.info{
+.subscription .block-section .row .license span.info{
     display: block;
     position: absolute;
     right: 3px;
@@ -468,7 +484,7 @@ nav ul li   input[type="submit"]:hover {
     width:140px;
     text-align: center;
 }
-.subscription .block-section .row a{
+.subscription .block-section .row .license{
     display: block;
     margin: 0 13px;
     width:113px;

@@ -18,6 +18,7 @@ namespace leavedays.Controllers
 
         public ActionResult Index(string company)
         {
+            //var a = User.IsInRole();
             return View();
         }
 

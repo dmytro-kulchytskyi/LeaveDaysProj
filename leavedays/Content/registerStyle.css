@@ -93,7 +93,7 @@ nav ul li   input[type="submit"] {
     height: 19px;
     background-color: transparent;
     border: none;
-    background-image: url("search.png");
+    background-image: url("img/search.png");
     background-size: cover;
     background-position: center;
 }
@@ -141,7 +141,7 @@ nav ul li   input[type="submit"]:hover {
 }
 
 .content header h2 {
-    text-align: center;
+    /*text-align: center;*/
     font-family: Arial;
     font-size: 28px;
 }
@@ -354,7 +354,7 @@ nav ul li   input[type="submit"]:hover {
     color: #c6c4c6;
 }
 
-.signin   input[type="submit"] {
+.signin   input[type="button"] {
     margin: 20px 80px 0px;
     width: 275px;
     height: 50px;
@@ -368,7 +368,7 @@ nav ul li   input[type="submit"]:hover {
     box-shadow: 0px 3px 0px 0px #588916;
 }
 
-.signin   input[type="submit"]:hover {
+.signin   input[type="button"]:hover {
     cursor: pointer;
 }
 
@@ -376,7 +376,7 @@ nav ul li   input[type="submit"]:hover {
     width:130px;
     margin: 20px auto;
 }
-.page-button a{
+.page-button div{
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -390,9 +390,9 @@ nav ul li   input[type="submit"]:hover {
     font-size: 25px;
     font-weight: bold;
     background-color: #c6c4c6;
+    cursor: pointer;
 }
-
-.page-button a.active{
+.page-button div.active{
     background-color: #8cc63f;
 }
 

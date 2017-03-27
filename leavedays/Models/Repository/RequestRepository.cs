@@ -39,6 +39,7 @@ namespace leavedays.Models.Repository
                     .List<ViewRequest>();
                 return result;
             }
+
         }
 
         public IEnumerable<ViewRequest> GetByUserIdForView(int userId)

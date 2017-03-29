@@ -1,5 +1,6 @@
 ﻿using leavedays.Models;
 using leavedays.Models.EditModel;
+using leavedays.Models.ViewModel;
 using leavedays.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -55,7 +56,7 @@ namespace leavedays.Controllers
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (currentUser == null) return RedirectToAction("Index", "Home");
             string userRoles = currentUser.Roles;
-            if (userRoles.Contains("[customer]") || userRoles.Contains("[financeadmin]"))
+            if (userRoles.Contains("[Customer]") || userRoles.Contains("[FinanceAdmin]"))
             //if (await userManager.IsInRoleAsync(currentUser.Id, "Customer") || await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
                 return View("RequestPanel", requestService.GetInProgressRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
@@ -64,14 +65,16 @@ namespace leavedays.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConfirmNew(int Id, string acceptBtn, string returnUrl = "")
-        { 
-            if (acceptBtn == "Accept")
-            {
-                requestService.Accept(Id);
-                if (string.IsNullOrEmpty(returnUrl)) return View("Index", "Home");
-                return Redirect(returnUrl);
-            }
+        public ActionResult Accept(int Id, string returnUrl = "")
+        {
+            requestService.Accept(Id);
+            if (string.IsNullOrEmpty(returnUrl)) return View("Index", "Home");
+            return Redirect(returnUrl);
+        }
+
+        [HttpPost]
+        public ActionResult Reject(int Id, string returnUrl = "")
+        {
             requestService.Reject(Id);
             if (string.IsNullOrEmpty(returnUrl)) return View("Index", "Home");
             return Redirect(returnUrl);
@@ -81,9 +84,9 @@ namespace leavedays.Controllers
         public async Task<ActionResult> ShowConfirmed()
         {
             var currentUser =await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
-            if (currentUser == null) return RedirectToAction("Index", "Home");
+            if (currentUser == null) return View("Index", "Home");
             string userRoles = currentUser.Roles;
-            if (userRoles.Contains("[customer]") || userRoles.Contains("[financeadmin]"))
+            if (userRoles.Contains("[Customer]") || userRoles.Contains("[FinanceAdmin]"))
             //if (await userManager.IsInRoleAsync(currentUser.Id, "Customer") || await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
                 return View("ConfirmedRequest", requestService.GetConfirmedRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));

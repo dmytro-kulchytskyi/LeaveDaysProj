@@ -38,17 +38,23 @@ namespace leavedays.Services
 
         public IEnumerable<ViewRequest> GetInProgressRequest(int id)
         {
-            return requestRepository.GetByRequestStatus(id, RequestStatus.InProgress);
+            IEnumerable<Request> requests = requestRepository.GetByRequestStatus(id, RequestStatus.InProgress);
+            IEnumerable<ViewRequest> requestsInProgress = CreateViewRequestsList(requests);
+            return requestsInProgress;
         }
 
         public IEnumerable<ViewRequest> GetConfirmedRequest(int id)
         {
-            return requestRepository.GetByRequestStatus(id, RequestStatus.Accepted, RequestStatus.NotAccepted);
+            IEnumerable<Request> requests = requestRepository.GetByRequestStatus(id, RequestStatus.Accepted, RequestStatus.NotAccepted);
+            IEnumerable<ViewRequest> confirmedRequest = CreateViewRequestsList(requests);
+            return confirmedRequest;
         }
 
         public IEnumerable<ViewRequest> GetSendedByUserId(int id)
         {
-            return requestRepository.GetByUserIdForView(id);
+            IEnumerable<Request> requests = requestRepository.GetByUserId(id);
+            IEnumerable<ViewRequest> userRequests = CreateViewRequestsList(requests);
+            return userRequests;
         }
 
         public void Accept(int id)
@@ -63,6 +69,20 @@ namespace leavedays.Services
             Request request = requestRepository.GetById(id);
             request.IsAccepted = RequestStatus.NotAccepted;
             requestRepository.Save(request);
+        }
+
+        private IEnumerable<ViewRequest> CreateViewRequestsList(IEnumerable<Request> requests)
+        {
+            IEnumerable<ViewRequest> viewRequests = requests.Select(m => new ViewRequest()
+            {
+                UserName = m.User.UserName,
+                Id = m.Id,
+                SigningDate = m.SigningDate,
+                VacationInterval = m.VacationDates,
+                RequestBase = m.RequestBase,
+                IsAccepted = m.IsAccepted
+            });
+            return viewRequests;
         }
 
     }

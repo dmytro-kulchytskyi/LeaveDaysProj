@@ -20,46 +20,18 @@ namespace leavedays.Models.Repository
             this.sessionFactory = sessionFactory;
         }
 
-        public IEnumerable<ViewRequest> GetByRequestStatus(int companyId, params RequestStatus[] status)
+        public IEnumerable<Request> GetByRequestStatus(int companyId, params RequestStatus[] status)
         {
             using (var session = sessionFactory.OpenSession())
             {
                 var criteria = session.CreateCriteria<Request>();
                 criteria.CreateAlias("User", "user");
                 criteria.Add(Restrictions.Eq("CompanyId", companyId))
-                    .Add(Restrictions.In("IsAccepted", status))
-                    .SetProjection(Projections.ProjectionList()
-                    .Add(Projections.Id(), "Id")
-                    .Add(Projections.Property("VacationDates"), "VacationInterval")
-                    .Add(Projections.Property("RequestBase"), "RequestBase")
-                    .Add(Projections.Property("SigningDate"), "SigningDate")
-                    .Add(Projections.Property("IsAccepted"), "IsAccepted")
-                    .Add(Projections.Property("user.UserName"), "UserName"));
-                var result = criteria.SetResultTransformer(Transformers.AliasToBean<ViewRequest>())
-                    .List<ViewRequest>();
+                    .Add(Restrictions.In("IsAccepted", status));
+                var result = criteria.List<Request>();
                 return result;
             }
 
-        }
-
-        public IEnumerable<ViewRequest> GetByUserIdForView(int userId)
-        {
-            using (var session = sessionFactory.OpenSession())
-            {
-                var criteria = session.CreateCriteria<Request>();
-                criteria.CreateAlias("User", "user");
-                criteria.Add(Restrictions.Eq("user.Id", userId))
-                    .SetProjection(Projections.ProjectionList()
-                    .Add(Projections.Id(), "Id")
-                    .Add(Projections.Property("VacationDates"), "VacationInterval")
-                    .Add(Projections.Property("RequestBase"), "RequestBase")
-                    .Add(Projections.Property("SigningDate"), "SigningDate")
-                    .Add(Projections.Property("IsAccepted"), "IsAccepted")
-                    .Add(Projections.Property("user.UserName"), "UserName"));
-                var result = criteria.SetResultTransformer(Transformers.AliasToBean<ViewRequest>())
-                    .List<ViewRequest>();
-                return result;
-            }
         }
 
         public Request GetById(int id)
@@ -74,9 +46,10 @@ namespace leavedays.Models.Repository
         {
             using (var session = sessionFactory.OpenSession())
             {
-                var result = session.CreateCriteria<Request>().
-                    Add(Restrictions.Eq("UserId", userId)).List<Request>();
-                return result;
+                var result = session.CreateCriteria<Request>();
+                result.CreateAlias("User", "user");
+                result.Add(Restrictions.Eq("user.Id", userId));
+                return result.List<Request>();
             }
         }
 

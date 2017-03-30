@@ -98,6 +98,11 @@ namespace leavedays.Controllers
             }
         }
 
+        public string Info()
+        {
+           return User.IsInRole("customer").ToString();
+        }
+
 
         [HttpGet]
         [AllowAnonymous]
@@ -176,10 +181,10 @@ namespace leavedays.Controllers
 
         // [Authorize(Roles="Customer")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "customer")]
         public ActionResult CreateEmployee()
         {
-            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "customer")) return HttpNotFound();
+           // if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "customer")) return HttpNotFound();
             var model = new CreateEmployeeViewModel();
             model.Roles = CreateUserAllowedRoles;
 
@@ -187,10 +192,10 @@ namespace leavedays.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "customer")]
         public async Task<ActionResult> CreateEmployee(CreateEmployeeViewModel model)
         {
-            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "customer")) return HttpNotFound();
+           // if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "customer")) return HttpNotFound();
             model.Roles = model.Roles = CreateUserAllowedRoles;
             if (!ModelState.IsValid)
             {
@@ -229,10 +234,10 @@ namespace leavedays.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "financeadmin")]
         public ActionResult CreateCompany()
         {
-            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "financeadmin")) return HttpNotFound();
+           // if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "financeadmin")) return HttpNotFound();
             var model = new CreateCompanyViewModel();
             model.Roles = CreateUserAllowedRoles;
             return View(model);

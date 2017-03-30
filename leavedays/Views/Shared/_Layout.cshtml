@@ -22,17 +22,17 @@
             </div>
             <div id="rightWelcome">
                 <div id="rightWelcomeText">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <text>Wellcome</text>
-                            @User.Identity.Name
-                            @Html.ActionLink("Log Out", "LogOff", "Account")
-                        }
-                        else
-                        {
-                            <span style="margin-right: 5px;">@Html.ActionLink("Log In", "Login", "Account")</span>
-                            <span>@Html.ActionLink("Register", "Register", "Account")</span>
-                        }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <text>Wellcome</text>
+                        @User.Identity.Name
+                        @Html.ActionLink("Log Out", "LogOff", "Account")
+                    }
+                    else
+                    {
+                        <span style="margin-right: 5px;">@Html.ActionLink("Log In", "Login", "Account")</span>
+                        <span>@Html.ActionLink("Register", "Register", "Account")</span>
+                    }
                 </div>
                 <div id="rightWelcomeHelpImg">
                     <img src="~/Content/img/helpicon_gray.gif" alt="Help" style="cursor: pointer;" onclick="window.open('http://support.leavedays.com&#39;, &#39;CustomPopUp&#39;, &#39;width=800, height=600, scrollbars=1, menubar=no, resizable=yes')">
@@ -56,7 +56,7 @@
                     </div>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @User.IsInRole("customer")
+
                         <span class="submenu" style="display: inline;">
                             @Html.ActionLink("Request", "Create", "Module")
                         </span>
@@ -66,8 +66,14 @@
                         </div>
                         <span class="submenu" style="display: inline;">
                             @Html.ActionLink("for consideration", "ConfirmNew", "Module")
-                            <p>@Html.ActionLink("Create Company", "CreateCompany", "Account") </p>
-                            <p> @Html.ActionLink("Create Emplyee", "CreateEmployee", "Account")</p>
+                            @if (User.IsInRole("financeadmin"))
+                            {
+                                <p>@Html.ActionLink("Create Company", "CreateCompany", "Account") </p>
+                            }
+                            @if (User.IsInRole("customer"))
+                            {
+                                <p> @Html.ActionLink("Create Emplyee", "CreateEmployee", "Account")</p>
+                            }
                         </span>
                         @Html.ActionLink("Employee Owerview", "eOwerview", "Module")
                         @Html.ActionLink("Calendar Owerview", "cOwerview", "Module")

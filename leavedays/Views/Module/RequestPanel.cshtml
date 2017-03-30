@@ -71,7 +71,7 @@
     </style>
 </head>
 <body>
-    <table class="table_price">
+    <table id="requestTable" class="table_price">
         <caption>Requests</caption>
         <tr class="head">
             <th>User</th>
@@ -84,7 +84,7 @@
         @foreach (ViewRequest request in Model)
         {
             <tr>
-                @using (Html.BeginForm("ConfirmNew", "Module", FormMethod.Post))
+                @using (Html.BeginForm(FormMethod.Post))
                 {
                     <td>@request.UserName</td>
                     <td>
@@ -97,24 +97,38 @@
                     if (@request.IsAccepted == leavedays.Models.RequestStatus.Accepted)
                     {
                         <td>Accepted</td>
-                        <td><input class="sel" type="submit" name="rejectBtn" value="Reject" /></td>
+                        <td><input name="acceptButton" class="sel" type="submit" value="Reject" /></td>
                     }
                     else if (@request.IsAccepted == leavedays.Models.RequestStatus.NotAccepted)
                     {
                         <td>NotAccepted</td>
-                        <td><input class="sel" type="submit" name="acceptBtn" value="Accept" /></td>
+                        <td><input name="rejectButton" class="sel" type="submit" value="Accept" /></td>
                     }
                     else
                     {
                         <td>InProgress</td>
                         <td>
-                            <input class="sel" type="submit" name="acceptBtn" value="Accept" />
-                            <input class="sel" type="submit" name="rejectBtn" value="Reject" />
+                            <input class="sel" type="submit" name="acceptButton" value="Accept" />
+                            <input class="sel" type="submit" name="rejectButton" value="Reject" />
                         </td>
                     }
                 }
             </tr>
         }
     </table>
+    <script>
+        window.addEventListener("load", function () {
+            document.getElementById("requestTable").addEventListener("click", function (event) {
+                if (event.target.tagName == "INPUT") {
+                    if (event.target.getAttribute("name") == "acceptButton"){
+                        event.target.form.setAttribute("action", "/Module/Accept")
+                    }
+                    else {
+                        event.target.form.setAttribute("action", "/Module/Reject");
+                    }       
+                }
+            });
+        });
+    </script>
 </body>
 </html>

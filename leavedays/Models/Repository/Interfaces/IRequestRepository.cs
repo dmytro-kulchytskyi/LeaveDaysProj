@@ -11,8 +11,7 @@ namespace leavedays.Models.Repository.Interfaces
         int Save(Request request);
         Request GetById(int id);
         IEnumerable<Request> GetByUserId(int userId);
-        IEnumerable<ViewRequest> GetByRequestStatus(int companyId, params RequestStatus[] status);
+        IEnumerable<Request> GetByRequestStatus(int companyId, params RequestStatus[] status);
         IEnumerable<Request> GetByCompanyId(int companyId);
-        IEnumerable<ViewRequest> GetByUserIdForView(int userId);
     }
 }

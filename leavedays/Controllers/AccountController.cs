@@ -55,49 +55,7 @@ namespace leavedays.Controllers
             }
         }
 
-        [Authorize]
-        public string info(string role = "")
-        {
-            return User.Identity.IsAuthenticated + " ID: " + User.Identity.GetUserId<int>() + "<br />FAdmin:" + User.IsInRole("FinanceAdmin") + "<br />FAdmin2" + userManager.IsInRole(User.Identity.GetUserId<int>(), "FinanceAdmin");
-           // var res = userManager.AddToRole(User.Identity.GetUserId<int>(), role);
-            //return Content(res.Succeeded.ToString());
-        }
 
-
-        public async Task<ActionResult> CreateCustomer()
-        {
-
-            var user = new AppUser() { UserName = "vados", Password = "dimas123" };
-            user.Roles = "[customer][financeadmin]";
-            var result = await userManager.CreateAsync(user, "dimas123");
-            if (result.Succeeded)
-            {
-                await signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
-            return Content(result.Succeeded.ToString());
-        }
-
-        public string CreateLicense(int n = 1)
-        {
-            var license = new License();
-            license.Name = "l" + n;
-            license.Modules = new HashSet<Module>()
-            {
-                new Module() {Id = 1, Name = "1" },
-                 new Module() {Id = 2, Name = "2" }
-            };
-          
-            return "ok " + licenseRepository.Save(license);
-        }
-
-
-        [Authorize]
-        public ActionResult AddTo(string role)
-        {
-            var id = User.Identity.GetUserId<int>();
-            userManager.AddToRole(id, role);
-            return Content(userManager.IsInRole(id, role).ToString() + "<br /><br />" + string.Join("<br />", userManager.GetRoles(id)));
-        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -124,9 +82,9 @@ namespace leavedays.Controllers
                 case SignInStatus.Success:
                     {
                         var companyId = userRepository.GetByUserName(model.UserName).CompanyId;
-                        if(companyId == 0) return RedirectToAction("Index", "Home");
+                        if (companyId == 0) return RedirectToAction("Index", "Home");
                         var company = companyRepository.GetById(companyId).UrlName;
-                        if(string.IsNullOrEmpty(company)) return RedirectToAction("Index", "Home");
+                        if (string.IsNullOrEmpty(company)) return RedirectToAction("Index", "Home");
                         return RedirectToAction("Company", "Account", new { companyName = company });
                     }
                 //case SignInStatus.LockedOut:
@@ -148,7 +106,7 @@ namespace leavedays.Controllers
             var licenseList = licenseRepository.GetAll();
             var model = new RegisterViewModel();
             model.LicenseList = licenseList;
-          //  model.Roles = CreateUserAllowedRoles;
+            //  model.Roles = CreateUserAllowedRoles;
             return View(model);
         }
 
@@ -160,7 +118,7 @@ namespace leavedays.Controllers
             {
                 model.LicenseList = licenseRepository.GetAll();
                 return View(model);
-                    
+
             }
 
             model.CompanyUrl = model.CompanyUrl.ToLower();
@@ -173,7 +131,7 @@ namespace leavedays.Controllers
             }
 
             var license = licenseRepository.GetByName(model.LicenseName);
-             
+
 
 
             List<string> rolesList = new List<string>();
@@ -193,10 +151,12 @@ namespace leavedays.Controllers
             };
             var companyId = companyRepository.Save(company);
 
+            var userRoles = companyService.GetRolesList(rolesList);
+
             var user = new AppUser()
             {
                 UserName = model.UserName,
-                Roles = companyService.GetRolesLine(rolesList),
+                Roles = new HashSet<Role>(userRoles),
                 CompanyId = companyId,
                 Modules = license.Modules,
                 FirstName = model.FirstName,
@@ -219,7 +179,7 @@ namespace leavedays.Controllers
         [Authorize]
         public ActionResult CreateEmployee()
         {
-            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "Customer")) return HttpNotFound();
+            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "customer")) return HttpNotFound();
             var model = new CreateEmployeeViewModel();
             model.Roles = CreateUserAllowedRoles;
 
@@ -230,7 +190,7 @@ namespace leavedays.Controllers
         [Authorize]
         public async Task<ActionResult> CreateEmployee(CreateEmployeeViewModel model)
         {
-            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "Customer")) return HttpNotFound();
+            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "customer")) return HttpNotFound();
             model.Roles = model.Roles = CreateUserAllowedRoles;
             if (!ModelState.IsValid)
             {
@@ -247,10 +207,12 @@ namespace leavedays.Controllers
             if (rolesList.Count == 0)
                 rolesList.Add(CreateUserAllowedRoles[0]);
 
+            var userRoles = companyService.GetRolesList(rolesList);
+
             var user = new AppUser()
             {
                 UserName = model.UserName,
-                Roles = companyService.GetRolesLine(rolesList),
+                Roles = new HashSet<Role>(userRoles),
                 CompanyId = userRepository.GetById(User.Identity.GetUserId<int>()).CompanyId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
@@ -270,7 +232,7 @@ namespace leavedays.Controllers
         [Authorize]
         public ActionResult CreateCompany()
         {
-            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "FinanceAdmin")) return HttpNotFound();
+            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "financeadmin")) return HttpNotFound();
             var model = new CreateCompanyViewModel();
             model.Roles = CreateUserAllowedRoles;
             return View(model);
@@ -281,12 +243,12 @@ namespace leavedays.Controllers
         public async Task<ActionResult> CreateCompany(CreateCompanyViewModel model)
         {
 
-            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "FinanceAdmin")) return HttpNotFound();
+            if (!userManager.IsInRole(User.Identity.GetUserId<int>(), "financeadmin")) return HttpNotFound();
             model.Roles = model.Roles = CreateUserAllowedRoles;
             if (!ModelState.IsValid) return View(model);
 
             model.CompanyUrl = model.CompanyUrl.ToLower();
-           
+
             var isUniq = companyRepository.GetByUrlName(model.CompanyUrl) == null;
             if (!isUniq)
             {
@@ -303,7 +265,6 @@ namespace leavedays.Controllers
             if (rolesList.Count == 0 || !rolesList.Contains("customer"))
                 rolesList.Add("customer");
 
-
             var company = new Company()
             {
                 FullName = model.CompanyName,
@@ -311,10 +272,12 @@ namespace leavedays.Controllers
             };
             var companyId = companyRepository.Save(company);
 
+            var userRoles = companyService.GetRolesList(rolesList);
+
             var user = new AppUser()
             {
                 UserName = model.UserName,
-                Roles = companyService.GetRolesLine(rolesList),
+                Roles = new HashSet<Role>(userRoles),
                 CompanyId = companyId,
                 LastName = model.LastName,
                 FirstName = model.FirstName,

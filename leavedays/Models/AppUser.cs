@@ -21,19 +21,19 @@ namespace leavedays.Models
         public virtual bool LockoutEnabled { get; set; }
         public virtual DateTimeOffset LockoutEnd { get; set; }
 
-        //private ISet<Role> _Roles = new HashSet<Role>();
-        //public virtual ISet<Role> Roles
-        //{
-        //    get
-        //    {
-        //        return _Roles;
-        //    }
-        //    set
-        //    {
-        //        _Roles = value;
-        //    }
-        //}
-        public virtual string Roles { get; set; }
+        private ISet<Role> _Roles = new HashSet<Role>();
+        public virtual ISet<Role> Roles
+        {
+            get
+            {
+                return _Roles;
+            }
+            set
+            {
+                _Roles = value;
+            }
+        }
+        // public virtual string Roles { get; set; }
         private ISet<Module> _Modules = new HashSet<Module>();
         public virtual ISet<Module> Modules
         {
@@ -59,10 +59,5 @@ namespace leavedays.Models
                 _requests = value;
             }
         }
-
-        //public virtual Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<IUser<string>> manager)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

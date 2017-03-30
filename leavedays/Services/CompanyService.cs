@@ -40,6 +40,22 @@ namespace leavedays.Services
             return rolesLine.ToString();
         }
 
+        public IEnumerable<Role> GetRolesList(IEnumerable<string> roles)
+        {
+            var allRoles = roleRepository.GetAll();
+            var userRoles = allRoles.Where(x => roles.Contains(x.Name));
+            return userRoles;
+        }
+
+        public bool ContainsRole(IEnumerable<Role> roles, string roleName)
+        {
+            if (roles == null) return false;
+            foreach (var role in roles)
+                if (role.Name == roleName)
+                    return true;
+            return false;
+        }
+
         public AppUser GetUserByName(string name)
         {
             return userRepository.GetByUserName(name);

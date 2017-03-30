@@ -10,5 +10,8 @@ namespace leavedays.Models
         public virtual int Id { get; set; }
         public virtual string FullName { get; set; }
         public virtual string UrlName { get; set; }
+        public virtual DateTime LastPay { get; set; }
+        public virtual double Debt { get; set; }
+        public virtual bool IsPaid { get; set; }
     }
 }

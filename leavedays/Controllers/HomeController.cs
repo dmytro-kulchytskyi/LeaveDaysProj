@@ -16,6 +16,7 @@ namespace leavedays.Controllers
             this.companyService = companyService;
         }
 
+
         public ActionResult Index(string company)
         {
             //var a = User.IsInRole();

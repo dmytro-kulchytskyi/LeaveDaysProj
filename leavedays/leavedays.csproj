@@ -210,6 +210,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,7 +219,9 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\EditModel\EditRequest.cs" />
     <Compile Include="Models\Identity\CustomRoleStore.cs" />
+    <Compile Include="Models\Identity\CustomUserManager.cs" />
     <Compile Include="Models\Identity\CustomUserStore.cs" />
+    <Compile Include="Models\Identity\Principal.cs" />
     <Compile Include="Models\License.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\Repository\CompanyRepository.cs" />
@@ -280,6 +283,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\ViewModels\Home\" />
     <Folder Include="Models\ViewModels\Request\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Request\" />
   </ItemGroup>

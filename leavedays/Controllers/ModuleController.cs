@@ -13,13 +13,17 @@ namespace leavedays.Controllers
 {
     public class ModuleController : Controller
     {
+        readonly CompanyService companyService;
         readonly RequestService requestService;
         private readonly UserManager<AppUser, int> userManager;
 
-        public ModuleController(RequestService requestService, UserManager<AppUser, int> userManager)
+        public ModuleController(RequestService requestService, 
+            UserManager<AppUser, int> userManager,
+            CompanyService companyService)
         {
             this.requestService = requestService;
             this.userManager = userManager;
+            this.companyService = companyService;
         }
 
         public ActionResult Index()
@@ -54,8 +58,8 @@ namespace leavedays.Controllers
         {
             var currentUser = await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (currentUser == null) return RedirectToAction("Index", "Home");
-            string userRoles = currentUser.Roles;
-            if (userRoles.Contains("[customer]") || userRoles.Contains("[financeadmin]"))
+            var userRoles = currentUser.Roles;
+            if (companyService.ContainsRole(userRoles, "customer") || companyService.ContainsRole(userRoles, "financeadmin"))
             //if (await userManager.IsInRoleAsync(currentUser.Id, "Customer") || await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
                 return View("RequestPanel", requestService.GetInProgressRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));
@@ -82,8 +86,8 @@ namespace leavedays.Controllers
         {
             var currentUser =await userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (currentUser == null) return RedirectToAction("Index", "Home");
-            string userRoles = currentUser.Roles;
-            if (userRoles.Contains("[customer]") || userRoles.Contains("[financeadmin]"))
+            var  userRoles = currentUser.Roles;
+            if (companyService.ContainsRole(userRoles, "customer") || companyService.ContainsRole(userRoles, "financeadmin"))
             //if (await userManager.IsInRoleAsync(currentUser.Id, "Customer") || await userManager.IsInRoleAsync(currentUser.Id, "FinanceAdmin"))
             {
                 return View("ConfirmedRequest", requestService.GetConfirmedRequest(currentUser.CompanyId).OrderBy(model => model.IsAccepted));

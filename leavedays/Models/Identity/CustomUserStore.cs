@@ -20,9 +20,20 @@ namespace leavedays.Models.Identity
 
         public Task AddToRoleAsync(AppUser user, string roleName)
         {
-            roleName = roleName.ToLower();
-            if (string.IsNullOrWhiteSpace(user.Roles)) user.Roles = "";
-            user.Roles += "[" + roleName + "]";
+            var role = roleRepository.GetByName(roleName);
+            if (role == null)
+                role = new Role() { Name = roleName };
+            roleRepository.Save(role);
+
+            if (user.Roles == null)
+            {
+                user.Roles = new HashSet<Role>() { role };
+            }
+            else
+            {
+                user.Roles.Add(role);
+            }
+
             return Task.FromResult(true);
         }
 
@@ -73,8 +84,8 @@ namespace leavedays.Models.Identity
 
         public Task<IList<string>> GetRolesAsync(AppUser user)
         {
-            if (string.IsNullOrWhiteSpace(user.Roles)) return Task.FromResult(new List<string>() as IList<string>);
-            return Task.FromResult(user.Roles.TrimEnd(']').Split(']').Select(role => role.TrimStart('[').ToLower()).ToList() as IList<string>);
+            if (user.Roles == null || user.Roles.Count() == 0) return Task.FromResult(new List<string>() { } as IList<string>);
+            return Task.FromResult(user.Roles.Select(x => x.Name).ToList() as IList<string>);
         }
 
         public Task<bool> GetTwoFactorEnabledAsync(AppUser user)
@@ -95,9 +106,11 @@ namespace leavedays.Models.Identity
 
         public Task<bool> IsInRoleAsync(AppUser user, string roleName)
         {
-            if (string.IsNullOrWhiteSpace(roleName) || string.IsNullOrWhiteSpace(user.Roles)) return Task.FromResult(false);
-            roleName = roleName.ToLower();
-            return Task.FromResult(user.Roles.ToLower().Contains("[" + roleName + "]"));
+            if (user.Roles == null) return Task.FromResult(false);
+            foreach (var role in user.Roles)
+                if (role.Name == roleName)
+                    return Task.FromResult(true);
+            return Task.FromResult(false);
         }
 
         public Task RemoveFromRoleAsync(AppUser user, string roleName)

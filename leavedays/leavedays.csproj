@@ -272,6 +272,7 @@
     <Content Include="Views\Module\Pending.cshtml" />
     <Content Include="Views\Account\Company.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Module\licenceInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

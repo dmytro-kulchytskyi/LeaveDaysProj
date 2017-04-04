@@ -118,5 +118,10 @@ namespace leavedays.Controllers
         {
             return View();
         }
+
+        public ActionResult licenceInfo()
+        {
+            return View();
+        }
     }
 }

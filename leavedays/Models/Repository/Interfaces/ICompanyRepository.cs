@@ -12,7 +12,7 @@ namespace leavedays.Models.Repository.Interfaces
         Company GetById(int id);
         Company GetByUrlName(string urlName);
         IList<Company> GetAll();
-        int GetOwnerId(int companyId);    
-
+        int GetOwnerId(int companyId);
+        IList<Company> GetByCompanyIds(IList<int> companyIds);
     }
 }

@@ -42,6 +42,30 @@ namespace leavedays.Models.Repository
             }
         }
 
+        public AppUser GetOwnerByCompanyId(int companyId)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                AppUser owner = session.CreateCriteria<AppUser>().
+                    CreateAlias("Roles", "roles").
+                    Add(Restrictions.Eq("roles.Name", "customer")).
+                    Add(Restrictions.Eq("CompanyId", companyId)).UniqueResult<AppUser>();
+                return owner;
+            }
+        }
+
+        public IList<AppUser> GetOwnersByCompanyIds(IList<int> companyId)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                var owners = session.CreateCriteria<AppUser>().
+                    CreateAlias("Roles", "roles").
+                    Add(Restrictions.Eq("roles.Name", "customer")).
+                    Add(Restrictions.In("CompanyId", companyId.ToArray<int>())).
+                    List<AppUser>();
+                return owners;
+            }
+        }
 
         public AppUser GetByUserName(string userName)
         {

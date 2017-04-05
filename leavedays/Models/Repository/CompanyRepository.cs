@@ -20,7 +20,10 @@ namespace leavedays.Models.Repository
 
         public IList<Company> GetAll()
         {
-            throw new NotImplementedException();
+            using (var session = sessionFactory.OpenSession())
+            {
+                return session.CreateCriteria<Company>().List<Company>();
+            }
         }
 
         public Company GetById(int id)
@@ -47,6 +50,16 @@ namespace leavedays.Models.Repository
                       .SetProjection(Projections.Property("Owner"))
                       .Add(Restrictions.IdEq(companyId))
                       .UniqueResult<int>();
+            }
+        }
+        public IList<Company> GetByCompanyIds(IList<int> companyIds)
+        {
+            using (var session = sessionFactory.OpenSession())
+            {
+                var companys = session.CreateCriteria<Company>().
+                    Add(Restrictions.In("Id", companyIds.ToArray<int>())).
+                    List<Company>();
+                return companys;
             }
         }
 

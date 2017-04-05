@@ -70,5 +70,10 @@ namespace leavedays.Services
             return companyRepository.Save(company);
         }
 
+        public IList<Company> GetCompanysByCompanyIds(IList<int> companyIds)
+        {
+            return companyRepository.GetByCompanyIds(companyIds);
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿@model leavedays.Models.Module
+﻿@model leavedays.Models.ViewModel.LicenseInfo
 
 @{
     ViewBag.Title = "Licence Info";
@@ -36,42 +36,20 @@
             </div>
 
             <br />
-
-            <div class="display-label">
-                Alias
-            </div>
-            <div class="display-field">
-
-            </div>
-
-            <br />
-
             <div class="display-label">
                 license code
             </div>
             <div class="display-field">
-                E925C7A543B6A81D4DBC66B0534F12C3
+                @Model.LicenceCode;
             </div>
 
             <br />
-
-            <div class="display-label">
-                coupled hardware
-            </div>
-            <div class="display-field">
-                0
-            </div>
-
-            <br />
-
             <div class="display-label">
                 expires on:
             </div>
             <div class="display-field">
-
-
-                <label id="Expires">
-                    1/1/2100
+            <label id="Expires">
+                   @Model.ExpirationDate;
                 </label>
             </div>
 
@@ -81,83 +59,14 @@
                 modules
             </div>
             <div class="display-field">
-
-
-                <ul>
-
-
+             <ul>
+                 @foreach (string module in Model.AvilableModules)
+                 {
                     <li>
-                        Common
+                        @module;
                     </li>
-
-
-
-                    <li>
-                        Leave
-                    </li>
-
-
-
-                    <li>
-                        Sick
-                    </li>
-
-
-
-                    <li>
-                        LeaveSale
-                    </li>
-
-
-
-                    <li>
-                        Banner
-                    </li>
-
-
-
-                    <li>
-                        CustomCalendar
-                    </li>
-
-
-
-                    <li>
-                        Api
-                    </li>
-
-
-
-                    <li>
-                        AuthorizationPaths
-                    </li>
-
-
-
-                    <li>
-                        NewRequest
-                    </li>
-
-
-
-                    <li>
-                        Import
-                    </li>
-
-
-
-                    <li>
-                        Mobile
-                    </li>
-
-
-
-                    <li>
-                        MobileV2
-                    </li>
-
-
-                </ul>
+                 }
+             </ul>
 
             </div>
 
@@ -167,7 +76,7 @@
                 number of users
             </div>
             <div class="display-field">
-                30
+                @Model.UsersNum;
             </div>
 
             <br />
@@ -176,7 +85,7 @@
                 used licenses
             </div>
             <div class="display-field">
-                21
+                @Model.UsedLicenses;
             </div>
 
             <br />
